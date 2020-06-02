@@ -1,9 +1,8 @@
 import { conn } from "../../../db_bootstrap";
 
 export async function listPSF(idPSF?: string) {
-    const query = await conn.query('SELECT * FROM PSF');
-    console.log(query);
-    return query;
+    const rows = await conn.query('SELECT * FROM PSF', []);
+    return rows.values;
 }
 
 export async function addPSF(reqBody) {

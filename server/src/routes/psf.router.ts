@@ -5,7 +5,7 @@ import * as Bussiness from './bussiness/index'
 
 const router: Router = Router();
 
-router.get('/list', PSFSaisServerConfiguration.authenticationMiddleware, listPSF);
+router.get('/list',  listPSF);
 router.get('/list/:id', PSFSaisServerConfiguration.authenticationMiddleware, listPSF);
 router.post('/add', PSFSaisServerConfiguration.authenticationMiddleware, addPSF);
 router.put('/update', PSFSaisServerConfiguration.authenticationMiddleware, updatePSF);
