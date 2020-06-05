@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren } from '@angular/core';
+
+declare let $;
 
 @Component({
   selector: 'app-tables',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
+  @ViewChild('datatable', {static: true}) table: ElementRef;
+  dataTable: any;
 
   constructor() { }
 
   ngOnInit() {
+    this.dataTable = $(this.table.nativeElement);
+    this.dataTable.dataTable();
   }
 
 }

@@ -12,8 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+<<<<<<< HEAD
 import { MoradorComponent } from './pages/morador/morador.component';
 import { AddUpdateMoradorComponent } from './pages/Morador/add-update-morador/add-update-morador.component';
+=======
+import { PsfComponent } from './pages/psf/psf.component';
+>>>>>>> origin
 
 
 @NgModule({
@@ -30,8 +34,12 @@ import { AddUpdateMoradorComponent } from './pages/Morador/add-update-morador/ad
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+<<<<<<< HEAD
     MoradorComponent,
     AddUpdateMoradorComponent
+=======
+    PsfComponent
+>>>>>>> origin
   ],
   providers: [],
   bootstrap: [AppComponent]
