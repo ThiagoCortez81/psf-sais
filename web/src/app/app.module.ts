@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { PsfComponent } from './pages/psf/psf.component';
+import { VisitaComponent } from './pages/visita/visita.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PsfComponent } from './pages/psf/psf.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PsfComponent
+    PsfComponent,
+    VisitaComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
