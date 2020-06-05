@@ -2,114 +2,81 @@ import { Router } from "express";
 import { PSFSaisServerConfiguration } from "../config/config";
 import { Request, Response } from 'express';
 import * as Bussiness from './bussiness/index'
+import { PSFModel, LoginResponse } from "../models";
 
 const router: Router = Router();
 
-router.get('/list',  listPSF);
-router.get('/list/:id', PSFSaisServerConfiguration.authenticationMiddleware, listPSF);
-router.post('/add', PSFSaisServerConfiguration.authenticationMiddleware, addPSF);
-router.put('/update', PSFSaisServerConfiguration.authenticationMiddleware, updatePSF);
-router.delete('/delete/:id', PSFSaisServerConfiguration.authenticationMiddleware, deletePSF);
+router.get('/list', listPSF);
+router.get('/list/:id'/*, PSFSaisServerConfiguration.authenticationMiddleware*/, listPSF);
+router.post('/add'/*, PSFSaisServerConfiguration.authenticationMiddleware*/, addPSF);
+router.put('/update/:id'/*, PSFSaisServerConfiguration.authenticationMiddleware*/, updatePSF);
+router.delete('/delete/:id'/*, PSFSaisServerConfiguration.authenticationMiddleware*/, deletePSF);
 
 async function listPSF(req: Request, res: Response) {
-    res.send(await Bussiness.listPSF());
-    // const response = new ResponseData();
-    // const reqBody: EntregaOrdemFiltro = req.body.filtroEntregas;
+    const id = req.params.id;
 
-    // if (Utils.isNotNullUndefinedEmpty(reqBody) && Utils.isNotNullUndefinedEmpty(reqBody.conta)) {
-    //     let entregas = await searchEntregasDataByFilter(reqBody);
-    //     if (reqBody.carregarListPontos || reqBody.carregarListPontosFalhos) {
-    //         entregas = await processarEntregas(entregas, reqBody.carregarListPontos, reqBody.carregarListPontosFalhos);
-    //     }
-    //     if (Utils.listTest(entregas)) {
-    //         response.status = true;
-    //         response.listEntregas = entregas;
-    //     } else {
-    //         response.status = true;
-    //         response.listEntregas = [];
-    //     }
-    // } else {
-    //     response.status = false;
-    //     response.mensagem = 'Envie uma conta para a busca.';
-    //     response.listEntregas = [];
-    // }
-
-    // res.send(response);
+    res.send({data: await Bussiness.listPSF(id)});
 }
 
 async function addPSF(req: Request, res: Response) {
-    // const response = new ResponseData();
-    // const reqBody: EntregaOrdemFiltro = req.body.filtroEntregas;
+    const psf: PSFModel = req.body;
+    const response: LoginResponse = new LoginResponse();
 
-    // if (Utils.isNotNullUndefinedEmpty(reqBody) && Utils.isNotNullUndefinedEmpty(reqBody.conta)) {
-    //     let entregas = await searchEntregasDataByFilter(reqBody);
-    //     if (reqBody.carregarListPontos || reqBody.carregarListPontosFalhos) {
-    //         entregas = await processarEntregas(entregas, reqBody.carregarListPontos, reqBody.carregarListPontosFalhos);
-    //     }
-    //     if (Utils.listTest(entregas)) {
-    //         response.status = true;
-    //         response.listEntregas = entregas;
-    //     } else {
-    //         response.status = true;
-    //         response.listEntregas = [];
-    //     }
-    // } else {
-    //     response.status = false;
-    //     response.mensagem = 'Envie uma conta para a busca.';
-    //     response.listEntregas = [];
-    // }
+    if (psf.nome != "" && psf.logradouro != "" && psf.numero != "" && psf.bairro != "" && psf.cep != "" && psf.cidade != "" && psf.estado != "") {
+        if (await Bussiness.addPSF(psf)) {
+            response.message = 'PSF inserido com sucesso!';
+            response.stats = true;
+        } else {
+            response.message = 'Erro ao inserir PSF, tente novamente.';
+            response.stats = false;
+        }
+    } else {
+        response.message = 'Preencha todos os campos obrigatórios e tente novamente.';
+        response.stats = false;
+    }
 
-    // res.send(response);
+    res.send(response);
 }
 
 async function updatePSF(req: Request, res: Response) {
-    // const response = new ResponseData();
-    // const reqBody: EntregaOrdemFiltro = req.body.filtroEntregas;
+    const id = req.params.id;
+    const psf: PSFModel = req.body;
+    const response: LoginResponse = new LoginResponse();
 
-    // if (Utils.isNotNullUndefinedEmpty(reqBody) && Utils.isNotNullUndefinedEmpty(reqBody.conta)) {
-    //     let entregas = await searchEntregasDataByFilter(reqBody);
-    //     if (reqBody.carregarListPontos || reqBody.carregarListPontosFalhos) {
-    //         entregas = await processarEntregas(entregas, reqBody.carregarListPontos, reqBody.carregarListPontosFalhos);
-    //     }
-    //     if (Utils.listTest(entregas)) {
-    //         response.status = true;
-    //         response.listEntregas = entregas;
-    //     } else {
-    //         response.status = true;
-    //         response.listEntregas = [];
-    //     }
-    // } else {
-    //     response.status = false;
-    //     response.mensagem = 'Envie uma conta para a busca.';
-    //     response.listEntregas = [];
-    // }
+    if (id && psf.nome != "" && psf.logradouro != "" && psf.numero != "" && psf.bairro != "" && psf.cep != "" && psf.cidade != "" && psf.estado != "") {
+        if (await Bussiness.updatePSF(id, psf)) {
+            response.message = 'PSF atualizado com sucesso!';
+            response.stats = true;
+        } else {
+            response.message = 'Erro ao atualizar PSF, tente novamente.';
+            response.stats = false;
+        }
+    } else {
+        response.message = 'Preencha todos os campos obrigatórios e tente novamente.';
+        response.stats = false;
+    }
 
-    // res.send(response);
+    res.send(response);
 }
 
 async function deletePSF(req: Request, res: Response) {
-    // const response = new ResponseData();
-    // const reqBody: EntregaOrdemFiltro = req.body.filtroEntregas;
+    const id = req.params.id;
+    const response: LoginResponse = new LoginResponse();
 
-    // if (Utils.isNotNullUndefinedEmpty(reqBody) && Utils.isNotNullUndefinedEmpty(reqBody.conta)) {
-    //     let entregas = await searchEntregasDataByFilter(reqBody);
-    //     if (reqBody.carregarListPontos || reqBody.carregarListPontosFalhos) {
-    //         entregas = await processarEntregas(entregas, reqBody.carregarListPontos, reqBody.carregarListPontosFalhos);
-    //     }
-    //     if (Utils.listTest(entregas)) {
-    //         response.status = true;
-    //         response.listEntregas = entregas;
-    //     } else {
-    //         response.status = true;
-    //         response.listEntregas = [];
-    //     }
-    // } else {
-    //     response.status = false;
-    //     response.mensagem = 'Envie uma conta para a busca.';
-    //     response.listEntregas = [];
-    // }
+    if (id) {
+        if (await Bussiness.deletePSF(id)) {
+            response.message = 'PSF inativado com sucesso!';
+            response.stats = true;
+        } else {
+            response.message = 'Erro ao inativar PSF, tente novamente.';
+            response.stats = false;
+        }
+    } else {
+        response.message = 'Preencha todos os campos obrigatórios e tente novamente.';
+        response.stats = false;
+    }
 
-    // res.send(response);
+    res.send(response);
 }
 
 export const PSFRouter: Router = router;

@@ -6,25 +6,25 @@ import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'app-psf',
-  templateUrl: './psf.component.html',
-  styleUrls: ['./psf.component.css'],
+  selector: 'app-funcionario',
+  templateUrl: './funcionario.component.html',
+  styleUrls: ['./funcionario.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PsfComponent implements OnInit {
+export class FuncionarioComponent implements OnInit {
   @ViewChild('dataTable', { static: true }) table: ElementRef;
   dataTable: any;
   listPSF: [];
 
   constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.dataTable = $(this.table.nativeElement);
     this.dataTable.dataTable({
       destroy: true,
       processing: true,
       ajax: {
-        url: "http://localhost:5000/api/psf/list",
+        url: "http://localhost:5000/api/funcionario/list",
         type: "GET"
       },
       language: {
@@ -40,7 +40,7 @@ export class PsfComponent implements OnInit {
       },
       buttons: ['copy', 'excel', 'pdf', 'colvis'],
       columns: [
-        { name: "Nome do PSF", data: 'nome', orderable: true },
+        { name: "Nome do Funcionário", data: 'nome', orderable: true },
         { name: "Endereço", data: 'logradouro', orderable: true },
         {
           name: "Ativo", data: (row) => {
@@ -55,8 +55,8 @@ export class PsfComponent implements OnInit {
         {
           name: "Ações", data: (row) => {
             return `
-              <button type="button" class="btn btn-sm btn-success edita-btn" value="${row.ID_PSF}">Editar</button>
-              <button type="button" class="btn btn-sm btn-danger desativa-btn" value="${row.ID_PSF}">Desativar</button>
+              <button type="button" class="btn btn-sm btn-success edita-btn" value="${row.ID_func}">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger desativa-btn" value="${row.ID_func}">Desativar</button>
             `;
           },
           orderable: false
@@ -88,16 +88,15 @@ export class PsfComponent implements OnInit {
 
   public async desativar(ref: MouseEvent) {
     const id = ref.srcElement['value'];
-    const psfDeleteResponse = await this.ws.psfDelete(id);
+    const funcionarioDeleteResponse = await this.ws.funcionarioDelete(id);
     
-    if (psfDeleteResponse != null) {
-      if (psfDeleteResponse['stats']) {
-        this.toastr.success(psfDeleteResponse['message'], "Sucesso!");
+    if (funcionarioDeleteResponse != null) {
+      if (funcionarioDeleteResponse['stats']) {
+        this.toastr.success(funcionarioDeleteResponse['message'], "Sucesso!");
         // buscando dados
         this.ngOnInit();
       } else {
-        console.log('aqui');
-        this.toastr.error(psfDeleteResponse['message'], "Ops!");
+        this.toastr.error(funcionarioDeleteResponse['message'], "Ops!");
       }
     } else {
     this.toastr.error("Tente novamente!", "Ops!");
@@ -107,6 +106,7 @@ export class PsfComponent implements OnInit {
   public async editar(ref: MouseEvent) {
     const id = ref.srcElement['value'];
     
-    this.router.navigate(['psf/edit/', id])
+    this.router.navigate(['funcionario/edit/', id])
   }
+
 }
