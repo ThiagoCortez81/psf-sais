@@ -13,12 +13,19 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Listagem de PSFs</h3>
+                    <div class="row">
+                        <div class="col-10">
+                            <h3 class="mb-0">Listagem de PSFs</h3>
+                        </div>
+                        <div class="col-2">
+                            <a [routerLink]="['/psf/add']" class="btn btn-md btn-success float-left text-white">Incluir PSF</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <table #dataTable class="table align-items-center table-flush">
+                            <table #dataTable datatable class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Nome do PSF</th>
@@ -28,29 +35,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td scope="row">
-                                            <div class="media align-items-center">
-                                                PSF A
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media align-items-center">
-                                                Tangamandápio
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media align-items-center">
-                                                <span class="badge badge-success">ATIVO</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media align-items-center">
-                                                <button type="button" class="btn btn-sm btn-success">Editar</button>
-                                                <button type="button" class="btn btn-sm btn-danger">Desativar</button>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
