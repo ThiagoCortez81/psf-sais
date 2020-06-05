@@ -25,7 +25,6 @@ async function updatePerfil(req: Request, res: Response) {
 }
 
 async function deletePerfil(req: Request, res: Response) {
-
     let idPerfil: number = parseInt(req.params.id);
     res.send(await Bussiness.deletePerfil(idPerfil));
 }
