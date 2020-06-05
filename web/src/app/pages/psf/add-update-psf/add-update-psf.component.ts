@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AddUpdatePsfComponent implements OnInit {
   psfObject = {
     ativo: 1,
+    id_perfil: 1,
     estado: ''
   };
 

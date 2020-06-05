@@ -16,6 +16,9 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { PsfComponent } from './pages/psf/psf.component';
 import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf.component';
+import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
+import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -35,9 +38,12 @@ import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf
     AdminLayoutComponent,
     AuthLayoutComponent,
     PsfComponent,
-    AddUpdatePsfComponent
+    AddUpdatePsfComponent,
+    FuncionarioComponent,
+    AddUpdateFuncionarioComponent
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

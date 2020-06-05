@@ -7,6 +7,8 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { PsfComponent } from 'src/app/pages/psf/psf.component';
 import { AddUpdatePsfComponent } from 'src/app/pages/psf/add-update-psf/add-update-psf.component';
+import { FuncionarioComponent } from 'src/app/pages//funcionario/funcionario.component';
+import { AddUpdateFuncionarioComponent } from 'src/app/pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -16,5 +18,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps', component: MapsComponent },
     { path: 'psf', component: PsfComponent },
     { path: 'psf/add', component: AddUpdatePsfComponent },
-    { path: 'psf/edit/:id', component: AddUpdatePsfComponent }
+    { path: 'psf/edit/:id', component: AddUpdatePsfComponent },
+    { path: 'funcionario', component: FuncionarioComponent },
+    { path: 'funcionario/add', component: AddUpdateFuncionarioComponent },
+    { path: 'funcionario/edit/:id', component: AddUpdateFuncionarioComponent }
 ];
