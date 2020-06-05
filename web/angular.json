@@ -29,13 +29,14 @@
             "styles": [
               "src/styles.scss",
               "src/assets/scss/argon.scss",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/clipboard/dist/clipboard.min.js",
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"
             ]
           },
           "configurations": {
