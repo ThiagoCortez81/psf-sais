@@ -12,6 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import { MoradorComponent } from './pages/morador/morador.component';
+import { AddUpdateMoradorComponent } from './pages/Morador/add-update-morador/add-update-morador.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { ComponentsModule } from './components/components.module';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    MoradorComponent,
+    AddUpdateMoradorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
