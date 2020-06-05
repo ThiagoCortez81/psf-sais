@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '../node_modules/datatables.net-dt/css/jquery.dataTables.css';
+
+.dataTables_length,
+.dataTables_filter label {
+    font-size: 14px;
+}
+
+.paginate_button {
+    font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    z-index: 1;
+    color: #fff !important;
+    background: #5e72e4 !important;
+    border-color: #5e72e4 !important;
+    border-radius: 50px;
+
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0 3px;
+    border-radius: 50% !important;
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+}
+
+.paginate_button {
+    float: left !important;
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #8898aa;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0 3px;
+    border-radius: 50% !important;
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+}
