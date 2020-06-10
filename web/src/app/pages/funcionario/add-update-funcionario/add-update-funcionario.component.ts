@@ -36,11 +36,12 @@ export class AddUpdateFuncionarioComponent implements OnInit {
 
   async buscaFuncionario(id: string) {
     const listFuncionario = await this.ws.listFuncionario(id);
+
     if (listFuncionario && listFuncionario.data && listFuncionario.data.length > 0) {
       
       listFuncionario.data[0].dataNascimento = this.transformDate(listFuncionario.data[0].dataNascimento);
+
       this.funcionarioObject = listFuncionario.data[0];
-      console.log(listFuncionario.data[0].dataNascimento);
       
     } else {
       this.toastr.error('Funcionário inválido', "Ops!");
@@ -49,7 +50,6 @@ export class AddUpdateFuncionarioComponent implements OnInit {
   }
 
   async addFuncionario() {
-    console.log(this.funcionarioObject.dataNascimento);
 
     const funcionarioAddResponse = await this.ws.funcionarioAdd(this.funcionarioObject);
     if (funcionarioAddResponse != null) {
@@ -65,8 +65,9 @@ export class AddUpdateFuncionarioComponent implements OnInit {
   }
 
   async atualizarFuncionario() {
-    console.log(this.funcionarioObject.dataNascimento);
+
     const funcionarioAddResponse = await this.ws.funcionarioAtualizar(this.funcionarioObject);
+
     if (funcionarioAddResponse != null) {
       if (funcionarioAddResponse['stats']) {
         this.toastr.success(funcionarioAddResponse['message'], "Sucesso!");
