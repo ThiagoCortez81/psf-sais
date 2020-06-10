@@ -4,7 +4,7 @@ import { MORADORModel } from "../../../models";
 export async function listMorador(ID_morador: string) {
     return new Promise(function (resolve, reject) {
         if (ID_morador)
-            conn.query("SELECT * FROM PSF WHERE ID_morador = ?", [ID_morador], function (err, results, fields) {
+            conn.query("SELECT * FROM Morador WHERE ID_morador = ?", [ID_morador], function (err, results, fields) {
                 if (err) { console.log(err); return resolve([]); }
                 return resolve(results);
             });
