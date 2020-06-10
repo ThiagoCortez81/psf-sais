@@ -17,6 +17,8 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' },
     // { path: '/psf', title: 'PSFs',  icon:'ni-ambulance text-black', class: '' },
     { path: '/morador', title: 'Morador',  icon:'ni-circle-08 text-blue', class: '' }
+    { path: '/psf', title: 'PSFs',  icon:'ni-ambulance text-black', class: '' },
+    { path: '/funcionario', title: 'Funcionários',  icon:'ni-single-02 text-blue', class: '' },   
 ];
 
 @Component({
