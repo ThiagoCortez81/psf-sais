@@ -2,7 +2,7 @@ export class MORADORModel {
     nome: string;
     cpf: string;
     sexo: string;
-    dataNascimeto: Date;
+    dataNascimeto: string;
     telefone: string;
     nrCartaoSUS: string;
     logradouro: string;
@@ -12,5 +12,6 @@ export class MORADORModel {
     cep: string;
     estado: string;
     ativo: number;
-    funcionarioVinculado: string;
+    ID_PSF: string;
+
 }

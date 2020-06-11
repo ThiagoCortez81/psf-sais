@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import { PSFRouter } from './routes/psf.router';
 import { FuncionarioRouter } from './routes/funcionario.router';
 import { PerfilRouter } from './routes/perfil.router';
+import {MORADORRouter} from './routes/morador.router';
 
 export class App {
 
@@ -31,6 +32,7 @@ export class App {
         this.express.use('/api/psf', PSFRouter);
         this.express.use('/api/funcionario', FuncionarioRouter);
         this.express.use('/api/perfil', PerfilRouter);
+        this.express.use('/api/morador', MORADORRouter);
     }
 
 }

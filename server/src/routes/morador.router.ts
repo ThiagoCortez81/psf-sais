@@ -7,10 +7,10 @@ import { MORADORModel, LoginResponse } from "../models";
 const router: Router = Router();
 
 router.get('/list', listMorador);
-router.get('/list/:id', PSFSaisServerConfiguration.authenticationMiddleware, listMorador);
-router.post('/add', PSFSaisServerConfiguration.authenticationMiddleware, addMorador);
-router.put('/update', PSFSaisServerConfiguration.authenticationMiddleware, updateMorador);
-router.delete('/delete/:id', PSFSaisServerConfiguration.authenticationMiddleware, deleteMorador);
+router.get('/list/:id', /*PSFSaisServerConfiguration.authenticationMiddleware*/ listMorador);
+router.post('/add', /*PSFSaisServerConfiguration.authenticationMiddleware*/addMorador);
+router.put('/update', /*PSFSaisServerConfiguration.authenticationMiddleware*/ updateMorador);
+router.delete('/delete/:id'/*, PSFSaisServerConfiguration.authenticationMiddleware*/, deleteMorador);
 
 async function listMorador(req: Request, res: Response) {
 
@@ -24,7 +24,9 @@ async function addMorador(req: Request, res: Response) {
     const morador: MORADORModel = req.body;
     const response: LoginResponse = new LoginResponse();
 
-    if (morador.cpf != "" && morador.nome != "" && morador.sexo != "" && morador.dataNascimeto.toDateString.length != 0 && morador.telefone != "" && morador.nrCartaoSUS && morador.logradouro != "" && morador.numero != null && morador.bairro != "" && morador.cep != "" && morador.cidade != "" && morador.estado != "") {
+    if (morador.cpf != "" && morador.nome != "" && morador.sexo != "" && morador.dataNascimeto != "" && morador.telefone != "" && morador.nrCartaoSUS && morador.logradouro != "" && morador.numero != null && morador.bairro != "" && morador.cep != "" && morador.cidade != "" && morador.estado != "" && morador.ativo != -1 &&morador.ID_PSF != "") {
+       
+        
         if (await Bussiness.addMorador(morador)) {
             response.message = 'Morador inserido com sucesso!';
             response.stats = true;
@@ -46,7 +48,7 @@ async function updateMorador(req: Request, res: Response) {
     const morador: MORADORModel = req.body;
     const response: LoginResponse = new LoginResponse();
 
-    if (morador.cpf != "" && morador.nome != "" && morador.sexo != "" && morador.dataNascimeto.toDateString.length != 0 && morador.telefone != "" && morador.nrCartaoSUS && morador.logradouro != "" && morador.numero != null && morador.bairro != "" && morador.cep != "" && morador.cidade != "" && morador.estado != "") {
+    if (morador.cpf != "" && morador.nome != "" && morador.sexo != "" && morador.dataNascimeto != "" && morador.telefone != "" && morador.nrCartaoSUS && morador.logradouro != "" && morador.numero != null && morador.bairro != "" && morador.cep != "" && morador.cidade != "" && morador.estado != "" && morador.ativo != null && morador.ID_PSF != "") {
         if (await Bussiness.updateMorador(id, morador)) {
             response.message = 'Morador atualizado com sucesso!';
             response.stats = true;

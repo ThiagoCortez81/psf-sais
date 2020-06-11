@@ -18,7 +18,7 @@ export async function listMorador(ID_morador: string) {
 
 export async function addMorador(moradorModel: MORADORModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("INSERT INTO Morador(cpf, nome, sexo, dataNascimento, telefone, nrCartaoSUS, logradouro, numero, bairro, cidade, cep, estado, ativo) VALUES (?)", [[moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone, moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo]], function (err, results, fields) {
+        conn.query("INSERT INTO Morador(cpf, nome, sexo, dataNascimento, telefone, nrCartaoSUS, logradouro, numero, bairro, cidade, cep, estado, ativo, ID_PSF) VALUES (?)", [[moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone, moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF]], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });
@@ -37,7 +37,7 @@ export async function deleteMorador(id: string) {
 
 export async function updateMorador(id: string, moradorModel: MORADORModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("UPDATE Morador SET cpf = ? , nome = ?, sexo = ?, dataNascimento = ?, telefone = ?, nrCartaoSUS = ?,   logradouro = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ? WHERE ID-morador = ?", [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo], function (err, results, fields) {
+        conn.query("UPDATE Morador SET cpf = ? , nome = ?, sexo = ?, dataNascimento = ?, telefone = ?, nrCartaoSUS = ?,   logradouro = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ? WHERE ID_morador = ?", [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });
