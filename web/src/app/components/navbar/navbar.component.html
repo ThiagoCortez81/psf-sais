@@ -19,11 +19,8 @@
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center" style="cursor: pointer;">
-            <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="assets/img/theme/team-4-800x800.jpg">
-            </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">Administrador</span>
+              <span class="mb-0 text-sm  font-weight-bold">Olá, {{userName}}</span>
             </div>
           </div>
         </a>
@@ -32,7 +29,7 @@
             <h6 class="text-overflow m-0">Bem Vindo!</h6>
           </div>
           <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
+          <a [routerLink]="" (click)="logout()" class="dropdown-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>

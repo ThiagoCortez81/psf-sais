@@ -30,7 +30,7 @@ export class WebserviceService {
     if (psfEntity != null) {
       const id = psfEntity['ID_PSF'];
       delete psfEntity['ID_PSF'];
-      
+
       return await this.doPut('psf/update', psfEntity, id);
     }
 
@@ -46,6 +46,10 @@ export class WebserviceService {
   }
 
   // Funcionario
+  public async fazLogin(loginReq: any) {
+    return await this.doPost('auth/login', loginReq);
+  }
+
   public async listFuncionario(id?: string) {
     if (id) {
       return await this.doGet('funcionario/list', id);
@@ -74,7 +78,7 @@ export class WebserviceService {
     if (funcionarioEntity != null) {
       const id = funcionarioEntity['ID_func'];
       delete funcionarioEntity['ID_func'];
-      
+
       return await this.doPut('funcionario/update', funcionarioEntity, id);
     }
 
