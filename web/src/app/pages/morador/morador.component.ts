@@ -17,7 +17,7 @@ declare var $: any;
 export class MoradorComponent implements OnInit {
   @ViewChild('dataTable', {static: true }) table: ElementRef;
   dataTable: any;
- // listPsf: [];
+  listMorador: [];
 
   constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router) { }
 
