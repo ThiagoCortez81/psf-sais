@@ -10,6 +10,7 @@ import { AddUpdatePsfComponent } from 'src/app/pages/psf/add-update-psf/add-upda
 import { FuncionarioComponent } from 'src/app/pages//funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from 'src/app/pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { MoradorComponent } from 'src/app/pages/morador/morador.component';
+import { AddUpdateMoradorComponent } from 'src/app/pages/morador/add-update-morador/add-update-morador.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -24,5 +25,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'funcionario/add', component: AddUpdateFuncionarioComponent },
     { path: 'funcionario/edit/:id', component: AddUpdateFuncionarioComponent },
     { path: 'morador', component: MoradorComponent },
+    { path: 'morador/add', component: AddUpdateMoradorComponent },
+    { path: 'morador/edit/:id', component: AddUpdateMoradorComponent},
 
 ];

@@ -21,6 +21,7 @@ import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
+import { AddUpdateMoradorComponent } from './pages/morador/add-update-morador/add-update-morador.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { DatePipe } from '@angular/common';
     PsfComponent,
     AddUpdatePsfComponent,
     FuncionarioComponent,
-    AddUpdateFuncionarioComponent
+    AddUpdateFuncionarioComponent,
+    AddUpdateMoradorComponent
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

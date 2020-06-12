@@ -80,6 +80,42 @@ export class WebserviceService {
 
     return false;
   }
+   //Morador
+   public async listMorador(id?: string) {
+    if (id) {
+      return await this.doGet('morador/list', id);
+    }
+
+    return await this.doGet('morador/list', id);
+  }
+
+  public async moradorDelete(id: any): Promise<boolean> {
+    if (id != null) {
+      return await this.doDelete('morador/delete', id);
+    }
+
+    return false;
+  }
+
+  public async moradorAdd(moradorEntity: any): Promise<boolean> {
+    if (moradorEntity != null) {
+      return await this.doPost('morador/add', moradorEntity);
+    }
+
+    return false;
+  }
+
+  public async moradorAtualizar(moradorEntity: any): Promise<boolean> {
+    if (moradorEntity != null) {
+      const id = moradorEntity['ID_morador'];
+      delete moradorEntity['ID_morador'];
+      
+      return await this.doPut('morador/update', moradorEntity, id);
+    }
+
+    return false;
+  }
+
 
   // Métodos
   private async doPost(endpoint: string, body: any) {
@@ -103,4 +139,8 @@ export class WebserviceService {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     return await this.http.delete<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
   }
+
+ 
+  
+
 }

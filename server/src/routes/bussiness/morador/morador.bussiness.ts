@@ -37,7 +37,13 @@ export async function deleteMorador(id: string) {
 
 export async function updateMorador(id: string, moradorModel: MORADORModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("UPDATE Morador SET cpf = ? , nome = ?, sexo = ?, dataNascimento = ?, telefone = ?, nrCartaoSUS = ?,   logradouro = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ? WHERE ID_morador = ?", [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF], function (err, results, fields) {
+        console.log(`eu aqui na data ${moradorModel.dataNascimeto}`);
+        let query = `UPDATE Morador SET cpf = ? , nome = ?, sexo = ?, dataNascimento = ?, telefone = ?, nrCartaoSUS = ?,   logradouro = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ?, ID_PSF = ? WHERE  ID_morador = ?;
+        `;
+        
+        
+
+        conn.query(query, [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF, id], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });

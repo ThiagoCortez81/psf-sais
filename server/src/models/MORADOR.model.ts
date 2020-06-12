@@ -12,6 +12,6 @@ export class MORADORModel {
     cep: string;
     estado: string;
     ativo: number;
-    ID_PSF: string;
+    ID_PSF: number;
 
 }
