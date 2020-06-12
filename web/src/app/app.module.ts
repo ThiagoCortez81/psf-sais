@@ -17,6 +17,7 @@ import { ComponentsModule } from './components/components.module';
 import { PsfComponent } from './pages/psf/psf.component';
 import { VisitaComponent } from './pages/visita/visita.component';
 import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf.component';
+import { AddUpdateVisitaComponent } from './pages/visita/add-update-visita/add-update-visita.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf
     AuthLayoutComponent,
     PsfComponent,
     VisitaComponent,
-    AddUpdatePsfComponent
+    AddUpdatePsfComponent,
+    AddUpdateVisitaComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

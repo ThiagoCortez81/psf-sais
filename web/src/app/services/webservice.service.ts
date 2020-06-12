@@ -29,7 +29,7 @@ export class WebserviceService {
     if (psfEntity != null) {
       const id = psfEntity['ID_PSF'];
       delete psfEntity['ID_PSF'];
-      
+
       return await this.doPut('psf/update', psfEntity, id);
     }
 
@@ -43,6 +43,37 @@ export class WebserviceService {
 
     return false;
   }
+
+  // ============================================================================================ //
+  // Visita
+
+  public async listVisita(idVisita?: string) {
+    if (idVisita) {
+      return await this.doGet('visita/list', idVisita);
+    }
+
+    return await this.doGet('visita/list', idVisita);
+  }
+
+  public async visitaAdd(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      return await this.doPost('visita/add', visitaEntity);
+    }
+
+    return false;
+  }
+
+  public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      const id = visitaEntity['ID_Visita'];
+      delete visitaEntity['ID_Visita'];
+      return await this.doPut('visita/update', visitaEntity, id);
+    }
+
+    return false;
+  }
+
+  // ============================================================================================ //
 
   private async doPost(endpoint: string, body: any) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
