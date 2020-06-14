@@ -20,6 +20,19 @@ import { FuncionarioComponent } from './pages/funcionario/funcionario.component'
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AgendaComponent } from './pages/agenda/agenda.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 @NgModule({
   imports: [
@@ -32,7 +45,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    NgSelectModule // Added Select Module
+    NgSelectModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }) // Added Select Module
   ],
   declarations: [
     AppComponent,
@@ -41,7 +54,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PsfComponent,
     AddUpdatePsfComponent,
     FuncionarioComponent,
-    AddUpdateFuncionarioComponent
+    AddUpdateFuncionarioComponent,
+    AgendaComponent
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
