@@ -19,7 +19,7 @@ import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -31,7 +31,8 @@ import { DatePipe } from '@angular/common';
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    NgSelectModule // Added Select Module
   ],
   declarations: [
     AppComponent,
