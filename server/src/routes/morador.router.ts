@@ -49,7 +49,7 @@ async function updateMorador(req: Request, res: Response) {
     const id = req.params.id;
     const morador: MORADORModel = req.body;
     const response: LoginResponse = new LoginResponse();
-    console.log(morador.dataNascimeto + "morador-router");
+ 
     
 
     if (morador.cpf != "" && morador.nome != "" && morador.sexo != "" && morador.dataNascimeto != null && morador.telefone != "" && morador.nrCartaoSUS && morador.logradouro != "" && morador.numero != null && morador.bairro != "" && morador.cep != "" && morador.cidade != "" && morador.estado != "" && morador.ativo != null && morador.ID_PSF != null) {
@@ -88,4 +88,11 @@ async function deleteMorador(req: Request, res: Response) {
     res.send(response);
 
 }
+
+
+
+
+
+
+
 export const MORADORRouter: Router = router;

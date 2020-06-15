@@ -12,10 +12,17 @@ import { DatePipe } from '@angular/common';
 })
 export class AddUpdateMoradorComponent implements OnInit {
   moradorObject = {
-  ativo: 1,
-  estado: '',
-  dataNascimento: ''
-};
+    ativo: 1,
+    estado: '',
+    dataNascimento: ''
+  };
+  psfObject = {
+    nome: ''
+  };
+
+  psfArr: any;
+
+
 
 
 
@@ -26,6 +33,8 @@ export class AddUpdateMoradorComponent implements OnInit {
     if (id != null && id != "") {
       this.buscaMorador(id);
     }
+
+    this.listpsf();
   }
   transformDate(date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
@@ -36,22 +45,18 @@ export class AddUpdateMoradorComponent implements OnInit {
   }
 
   async buscaMorador(id: string) {
-    const listMorador= await this.ws.listMorador(id);
+    const listMorador = await this.ws.listMorador(id);
     if (listMorador && listMorador.data && listMorador.data.length > 0) {
-      
+
       listMorador.data[0].dataNascimento = this.transformDate(listMorador.data[0].dataNascimento);
       this.moradorObject = listMorador.data[0];
-      console.log(listMorador.data[0].dataNascimento);
-      
     } else {
       this.toastr.error('Morador inválido', "Ops!");
       this.router.navigate(['/morador']);
     }
   }
-  
-  async addMorador() {
-    console.log('Meu morador'+ this.moradorObject.dataNascimento);
 
+  async addMorador() {
     const moradorAddResponse = await this.ws.moradorAdd(this.moradorObject);
     if (moradorAddResponse != null) {
       if (moradorAddResponse['stats']) {
@@ -66,11 +71,8 @@ export class AddUpdateMoradorComponent implements OnInit {
   }
 
   async atualizarMorador() {
-    console.log(this.moradorObject.dataNascimento);
-   
-
     const moradorAddResponse = await this.ws.moradorAtualizar(this.moradorObject);
-    
+
     if (moradorAddResponse != null) {
       if (moradorAddResponse['stats']) {
         this.toastr.success(moradorAddResponse['message'], "Sucesso!");
@@ -84,8 +86,21 @@ export class AddUpdateMoradorComponent implements OnInit {
   }
 
 
+  async listpsf() {
+
+    //console.log(this.ws.listPSF() + 'eu aqui');
+    const listPSF = await this.ws.listPSF();
+    if (listPSF && listPSF.data && listPSF.data.length > 0) {
+
+      this.psfArr = listPSF.data;
 
 
 
 
+    }
+  }
 }
+
+
+
+

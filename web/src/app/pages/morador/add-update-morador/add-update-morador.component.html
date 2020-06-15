@@ -79,8 +79,10 @@
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="dataNascimento">Nome do PSF</label>
-                                        <input max='2020-05-06' type="text" [(ngModel)]="moradorObject.ID_PSF" name="PSF" id="PSF" class="form-control form-control-alternative">
+                                        <label class="form-control-label" for="input-email">Nome do PSF</label>
+                                        <select type="text" [(ngModel)]="moradorObject.ID_PSF" name="nome" class="form-control form-control-alternative">
+                                            <option *ngFor="let psf of psfArr | keyvalue" [value]="psf.key"> {{psf.key}} - {{psf.value.nome}}</option>
+                                        </select>
                                     </div>
                                 </div>
 

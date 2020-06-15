@@ -37,7 +37,7 @@ export async function deleteMorador(id: string) {
 
 export async function updateMorador(id: string, moradorModel: MORADORModel) {
     return new Promise(function (resolve, reject) {
-        console.log(`eu aqui na data ${moradorModel.dataNascimeto}`);
+       // console.log(`eu aqui na data ${moradorModel.dataNascimeto}`);
         let query = `UPDATE Morador SET cpf = ? , nome = ?, sexo = ?, dataNascimento = ?, telefone = ?, nrCartaoSUS = ?,   logradouro = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ?, ID_PSF = ? WHERE  ID_morador = ?;
         `;
         
@@ -50,3 +50,4 @@ export async function updateMorador(id: string, moradorModel: MORADORModel) {
     });
 
 }
+
