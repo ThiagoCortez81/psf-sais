@@ -82,6 +82,10 @@ export class WebserviceService {
     return await this.doGet('funcionario/list');
   }
 
+  public async listPerfil() {
+    return await this.doGet('perfil/list');
+  }
+
   public async funcionarioDelete(id: any): Promise<boolean> {
     if (id != null) {
       return await this.doDelete('funcionario/delete', id);
@@ -118,6 +122,14 @@ export class WebserviceService {
     return false;
   }
 
+  public async listEstados() {
+    return await this.doGetWithURL('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+  }
+
+  public async listMunicipios(idEstado: any) {
+    return await this.doGetWithURL(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${idEstado}/distritos?orderBy=nome`);
+  }
+
   // Métodos
   private async doPost(endpoint: string, body: any) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
@@ -134,6 +146,13 @@ export class WebserviceService {
     if (id)
       return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
     return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
+  }
+
+  private async doGetWithURL(URL_SERVER: string, id?: string) {
+    // TODO: ADD HEADER DE AUTENTICAÇÃO
+    if (id)
+      return await this.http.get<any>(`${URL_SERVER}/${id}`).toPromise();
+    return await this.http.get<any>(`${URL_SERVER}`).toPromise();
   }
 
   private async doDelete(endpoint: string, id: string) {

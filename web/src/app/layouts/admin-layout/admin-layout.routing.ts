@@ -12,6 +12,7 @@ import { AddUpdateVisitaComponent } from '../../pages/visita/add-update-visita/a
 import { FuncionarioComponent } from 'src/app/pages//funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from 'src/app/pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { AuthGuardService } from 'src/app/services/authGuard/auth-guard.service';
+import { AgendaComponent } from 'src/app/pages/agenda/agenda.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -25,7 +26,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'funcionario', component: FuncionarioComponent, canActivate: [AuthGuardService] },
     { path: 'funcionario/add', component: AddUpdateFuncionarioComponent, canActivate: [AuthGuardService] },
     { path: 'funcionario/edit/:id', component: AddUpdateFuncionarioComponent, canActivate: [AuthGuardService] },
-    { path: 'visita', component: VisitaComponent },
-    { path: 'visita/add', component: AddUpdateVisitaComponent },
-    { path: 'visita/edit/:id', component: AddUpdateVisitaComponent },
+    { path: 'visita', component: VisitaComponent, canActivate: [AuthGuardService] },
+    { path: 'visita/add', component: AddUpdateVisitaComponent, canActivate: [AuthGuardService] },
+    { path: 'visita/edit/:id', component: AddUpdateVisitaComponent, canActivate: [AuthGuardService] },
+    { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuardService] }
 ];
