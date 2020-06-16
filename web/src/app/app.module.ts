@@ -22,7 +22,20 @@ import { FuncionarioComponent } from './pages/funcionario/funcionario.component'
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
 import { AddUpdateMoradorComponent } from './pages/morador/add-update-morador/add-update-morador.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AgendaComponent } from './pages/agenda/agenda.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 @NgModule({
   imports: [
@@ -34,7 +47,8 @@ import { AddUpdateMoradorComponent } from './pages/morador/add-update-morador/ad
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    NgSelectModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }) // Added Select Module
   ],
   declarations: [
     AppComponent,
@@ -42,11 +56,11 @@ import { AddUpdateMoradorComponent } from './pages/morador/add-update-morador/ad
     AuthLayoutComponent,
     MoradorComponent,
     PsfComponent,
-    PsfComponent,
     AddUpdatePsfComponent,
     FuncionarioComponent,
     AddUpdateFuncionarioComponent,
-    AddUpdateMoradorComponent
+    AddUpdateMoradorComponent,
+    AgendaComponent,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

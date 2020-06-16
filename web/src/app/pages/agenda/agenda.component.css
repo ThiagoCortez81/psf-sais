@@ -1,0 +1,18 @@
+h3 {
+    margin: 0 0 10px;
+  }
+  
+pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+}
+
+:host ::ng-deep .cal-day-badge {
+  background-color: #f8de00;
+}
+
+:host ::ng-deep .cal-month-view .cal-header .cal-cell {
+  z-index: 10;
+  color: #f5f5f5;
+  text-transform:capitalize;
+}

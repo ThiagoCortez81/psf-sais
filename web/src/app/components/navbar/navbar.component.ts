@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/tokenStorage/token-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,14 +12,19 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
+  public userName: string = '';
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(location: Location,  private element: ElementRef, private router: Router, private tokenService: TokenStorageService) {
     this.location = location;
   }
 
   ngOnInit() {
+    const user = this.tokenService.getUser();
+
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.userName = user['nome'];
   }
+
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){
@@ -30,7 +36,12 @@ export class NavbarComponent implements OnInit {
             return this.listTitles[item].title;
         }
     }
-    return 'Dashboard';
+    return '';
+  }
+
+  logout() {
+    this.tokenService.signOut();
+    this.router.navigate(['/login']);
   }
 
 }

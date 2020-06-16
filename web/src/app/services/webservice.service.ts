@@ -30,7 +30,7 @@ export class WebserviceService {
     if (psfEntity != null) {
       const id = psfEntity['ID_PSF'];
       delete psfEntity['ID_PSF'];
-      
+
       return await this.doPut('psf/update', psfEntity, id);
     }
 
@@ -46,12 +46,20 @@ export class WebserviceService {
   }
 
   // Funcionario
+  public async fazLogin(loginReq: any) {
+    return await this.doPost('auth/login', loginReq);
+  }
+
   public async listFuncionario(id?: string) {
     if (id) {
       return await this.doGet('funcionario/list', id);
     }
 
     return await this.doGet('funcionario/list', id);
+  }
+
+  public async listPerfil() {
+    return await this.doGet('perfil/list');
   }
 
   public async funcionarioDelete(id: any): Promise<boolean> {
@@ -74,7 +82,7 @@ export class WebserviceService {
     if (funcionarioEntity != null) {
       const id = funcionarioEntity['ID_func'];
       delete funcionarioEntity['ID_func'];
-      
+
       return await this.doPut('funcionario/update', funcionarioEntity, id);
     }
 
@@ -118,6 +126,14 @@ export class WebserviceService {
 
 
 
+  public async listEstados() {
+    return await this.doGetWithURL('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+  }
+
+  public async listMunicipios(idEstado: any) {
+    return await this.doGetWithURL(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${idEstado}/distritos?orderBy=nome`);
+  }
+
   // Métodos
   private async doPost(endpoint: string, body: any) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
@@ -134,6 +150,13 @@ export class WebserviceService {
     if (id)
       return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
     return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
+  }
+
+  private async doGetWithURL(URL_SERVER: string, id?: string) {
+    // TODO: ADD HEADER DE AUTENTICAÇÃO
+    if (id)
+      return await this.http.get<any>(`${URL_SERVER}/${id}`).toPromise();
+    return await this.http.get<any>(`${URL_SERVER}`).toPromise();
   }
 
   private async doDelete(endpoint: string, id: string) {

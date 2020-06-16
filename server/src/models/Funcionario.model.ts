@@ -1,5 +1,5 @@
 export class FuncionarioModel {
-    id_perfil: string;
+    ID_perfil: string;
     nome: string;
     cpf: string;
     sexo: string;
