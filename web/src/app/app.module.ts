@@ -17,13 +17,10 @@ import { ComponentsModule } from './components/components.module';
 import { PsfComponent } from './pages/psf/psf.component';
 import { VisitaComponent } from './pages/visita/visita.component';
 import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf.component';
-<<<<<<< HEAD
 import { AddUpdateVisitaComponent } from './pages/visita/add-update-visita/add-update-visita.component';
-=======
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
->>>>>>> master
 
 
 @NgModule({
@@ -43,18 +40,14 @@ import { DatePipe } from '@angular/common';
     AdminLayoutComponent,
     AuthLayoutComponent,
     PsfComponent,
-<<<<<<< HEAD
     VisitaComponent,
     AddUpdatePsfComponent,
-    AddUpdateVisitaComponent
-=======
-    AddUpdatePsfComponent,
+    AddUpdateVisitaComponent,
     FuncionarioComponent,
     AddUpdateFuncionarioComponent
->>>>>>> master
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }

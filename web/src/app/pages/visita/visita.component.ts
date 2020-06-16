@@ -3,6 +3,8 @@ import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@an
 import { WebserviceService } from '../../services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-visita',
@@ -16,7 +18,7 @@ export class VisitaComponent implements OnInit {
   dataTable: any;
   listVisita: [];
 
-  constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router) { }
+  constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.dataTable = $(this.table.nativeElement);
@@ -40,23 +42,24 @@ export class VisitaComponent implements OnInit {
       },
       buttons: ['copy', 'excel', 'pdf', 'colvis'],
       columns: [
-       // { name: 'ID da visita', data: 'id', orderable: true },
-        { name: 'Data e hora', data: 'timestamp', orderable: true },
-        { name: 'Data de retorno', data: 'dataRetorno', orderable: true },
-        { name: 'Tipo da visita', data: 'tipoVisita', orderable: true },
-        { name: 'Necessita de injetáveis?', data: 'necInjetaveis', orderable: true },
-        { name: 'Necessita de especialista?', data: 'necEspecialista', orderable: true },
-        { name: 'Necessita de enfermeiro?', data: 'necEnfermeiro', orderable: true },
-        { name: 'Necessita de curativo?', data: 'necCurativo', orderable: true },
-        { name: 'Utiliza Farmácia Popular?', data: 'utilFarmPopular', orderable: true },
-        { name: 'Morador não encontrado?', data: 'morNaoEncontrado', orderable: true },
-        { name: 'Observações', data: 'obs', orderable: true },
-        { name: 'Localização', data: 'local', orderable: true },
+        // { name: 'ID da visita', data: 'id', orderable: true },
+        { name: 'Nome morador', data: 'nome', orderable: true },
+        { name: 'Data agendada', data: 'dataAgendada', orderable: true },
+        // { name: 'Data de retorno', data: 'dataRetorno', orderable: true },
+        { name: 'Tipo da visita', data: 'tipo', orderable: true },
+        // { name: 'Necessita de injetáveis?', data: 'necInjetaveis', orderable: true },
+        // { name: 'Necessita de especialista?', data: 'necEspecialista', orderable: true },
+        // { name: 'Necessita de enfermeiro?', data: 'necEnfermeiro', orderable: true },
+        //{ name: 'Necessita de curativo?', data: 'necCurativo', orderable: true },
+        // { name: 'Utiliza Farmácia Popular?', data: 'utilFarmPopular', orderable: true },
+         { name: 'Status', data: 'status', orderable: true },
+        //  { name: 'Observações', data: 'obs', orderable: true },
+        // { name: 'Localização', data: 'local', orderable: true },
         {
           name: 'Ações', data: (row) => {
             return `
-              <button type="button" class="btn btn-sm btn-success edita-btn" value="${row.ID_VISITA}">Editar</button>
-              <button type="button" class="btn btn-sm btn-danger desativa-btn" value="${row.ID_VISITA}">Desativar</button>
+              <button type="button" class="btn btn-sm btn-success edita-btn" value="${row.ID_visita}">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger desativa-btn" value="${row.ID_visita}">Cancelar</button>
             `;
           },
           orderable: false
@@ -70,7 +73,7 @@ export class VisitaComponent implements OnInit {
         for (let elem of elems) {
           if (elem.getAttribute('listener') !== 'true') {
             elem.setAttribute('listener', 'true');
-            //elem.addEventListener('click', this.desativar.bind(this));
+            elem.addEventListener('click', this.desativar.bind(this));
           }
         };
       }
@@ -85,28 +88,37 @@ export class VisitaComponent implements OnInit {
       }
     }, 1000, this);
   }
-/*
-    public async desativar(ref: MouseEvent) {
-      const id = ref.srcElement['value'];
-      const visitaDeleteResponse = await this.ws.visitaDelete(id);
 
-      if (visitaDeleteResponse != null) {
-        if (visitaDeleteResponse['stats']) {
-          this.toastr.success(visitaDeleteResponse['message'], 'Sucesso!');
-          // buscando dados
-          this.ngOnInit();
-        } else {
-          console.log('aqui');
-          this.toastr.error(visitaDeleteResponse['message'], 'Ops!');
-        }
-      } else {
-      this.toastr.error('Tente novamente!', 'Ops!');
-      }
-    }
-*/
-    public async editar(ref: MouseEvent) {
-      const id = ref.srcElement['value'];
+  transformDate(date) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
+  }
 
-      this.router.navigate(['visita/edit/', id])
-    }
+  public async desativar(ref: MouseEvent) {
+
+    alert('Desativar');
+    // const id = ref.srcElement['value'];
+    // const visitaDeleteResponse = await this.ws.visitaDelete(id);
+
+    // if (visitaDeleteResponse != null) {
+    //   if (visitaDeleteResponse['stats']) {
+    //     this.toastr.success(visitaDeleteResponse['message'], 'Sucesso!');
+    //     // buscando dados
+    //     this.ngOnInit();
+    //   } else {
+    //     console.log('aqui');
+    //     this.toastr.error(visitaDeleteResponse['message'], 'Ops!');
+    //   }
+    // } else {
+    //   this.toastr.error('Tente novamente!', 'Ops!');
+    // }
+  }
+
+  public async editar(ref: MouseEvent) {
+    // const id = ref.srcElement['value'];
+
+    // this.router.navigate(['visita/edit/', id]);
+    alert('Editar')
+  }
+
+
 }

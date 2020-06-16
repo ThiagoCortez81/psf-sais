@@ -1,13 +1,15 @@
 export class VisitaModel {
-    dataHora: Date;
-    dataRetorno: Date;
+    dataAgendada: Date;
+    dataRealizada: Date;
     localizacao: string;
-    tipoVisita: string;
+    tipo: string;
     necInjetaveis: boolean;
     necEspecialista: boolean;
     necEnfermeiro: boolean;
     necCurativo: boolean;
     usaFarmPopular: boolean;
-    morNaoEncontrado: boolean;
-    obs: string
+    status: boolean;
+    obs: string;
+    ID_morador;
+    ID_funcionario: number;
 }

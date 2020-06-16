@@ -17,7 +17,6 @@ async function login(req: Request, res: Response) {
     const reqBody: LoginReq = req.body;
 
     const funcionarios = await Bussiness.loginFuncionario(reqBody);
-
     if (funcionarios != null) {
         if (funcionarios[0] != null) {
             const funcionario = JSON.parse(JSON.stringify(funcionarios[0]));

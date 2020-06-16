@@ -45,7 +45,6 @@ export class WebserviceService {
     return false;
   }
 
-<<<<<<< HEAD
   // ============================================================================================ //
   // Visita
 
@@ -60,7 +59,16 @@ export class WebserviceService {
   public async visitaAdd(visitaEntity: any): Promise<boolean> {
     if (visitaEntity != null) {
       return await this.doPost('visita/add', visitaEntity);
-=======
+    }
+  }
+  public async visitaDelete(psfEntity: any): Promise<boolean> {
+    if (psfEntity != null) {
+      return await this.doDelete('visita/delete', psfEntity);
+    }
+
+    return false;
+  }
+
   // Funcionario
   public async fazLogin(loginReq: any) {
     return await this.doPost('auth/login', loginReq);
@@ -71,38 +79,34 @@ export class WebserviceService {
       return await this.doGet('funcionario/list', id);
     }
 
-    return await this.doGet('funcionario/list', id);
+    return await this.doGet('funcionario/list');
   }
 
   public async funcionarioDelete(id: any): Promise<boolean> {
     if (id != null) {
       return await this.doDelete('funcionario/delete', id);
->>>>>>> master
     }
 
     return false;
   }
 
-<<<<<<< HEAD
   public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
     if (visitaEntity != null) {
       const id = visitaEntity['ID_Visita'];
       delete visitaEntity['ID_Visita'];
       return await this.doPut('visita/update', visitaEntity, id);
-=======
+    }
+  }
   public async funcionarioAdd(funcionarioEntity: any): Promise<boolean> {
     if (funcionarioEntity != null) {
       return await this.doPost('funcionario/add', funcionarioEntity);
->>>>>>> master
     }
 
     return false;
   }
 
-<<<<<<< HEAD
   // ============================================================================================ //
 
-=======
   public async funcionarioAtualizar(funcionarioEntity: any): Promise<boolean> {
     if (funcionarioEntity != null) {
       const id = funcionarioEntity['ID_func'];
@@ -115,7 +119,6 @@ export class WebserviceService {
   }
 
   // Métodos
->>>>>>> master
   private async doPost(endpoint: string, body: any) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     return await this.http.post<any>(`${this.URL_SERVER}${endpoint}`, body).toPromise();

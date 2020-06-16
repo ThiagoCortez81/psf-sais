@@ -3,8 +3,7 @@ import { WebserviceService } from 'src/app/services/webservice.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { async } from '@angular/core/testing';
-import { log } from 'console';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-update-visita',
@@ -14,28 +13,45 @@ import { log } from 'console';
 export class AddUpdateVisitaComponent implements OnInit {
   visitaObject = {
     ativo: 1,
-    estado: ''
+    estado: '',
+    dataAgendada: '',
+    localizacao: '',
+    tipo: '',
   };
+
+  funcionarioArr = [];
 
   public posicao: any;
 
-  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     let id = this.route.snapshot.params.id;
     if (id != null && id != '') {
       this.buscaVisita(id);
     }
+
+    this.buscaFuncionario();
+  }
+
+
+  transformDate(date) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   async buscaVisita(id: string) {
     const listVisita = await this.ws.listVisita(id);
     if (listVisita && listVisita.data && listVisita.data.lenght > 0) {
-      this.visitaObject = listVisita[0];
+      listVisita.data[0].dataAgendada = this.transformDate(listVisita.data[0].dataAgendada);
+      this.visitaObject = listVisita.data[0];
     } else {
       this.toastr.error('Visita inválida', 'Ops!');
       this.router.navigate(['/visita']);
     }
+  }
+
+  async buscaFuncionario () {
+    this.funcionarioArr = await this.ws.listFuncionario();
   }
 
   async addVisita() {

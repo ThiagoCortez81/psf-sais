@@ -22,7 +22,7 @@ async function addVisita(req: Request, res: Response) {
     const vst: VisitaModel = req.body;
     const response: LoginResponse = new LoginResponse();
 
-    if (vst.dataHora != null && vst.dataRetorno != null && vst.localizacao != "" ) {
+    if (vst.dataAgendada != null) {
         if (await Bussiness.addVisita(vst)) {
             response.message = 'Visita inserida com sucesso!';
             response.stats = true;
@@ -43,7 +43,7 @@ async function updateVisita(req: Request, res: Response) {
     const vst: VisitaModel = req.body;
     const response: LoginResponse = new LoginResponse();
 
-    if (vst.dataHora != null && vst.dataRetorno != null && vst.localizacao != "" ) {
+    if (vst.dataAgendada != null ) {
         if (await Bussiness.updateVisita(id, vst)) {
             response.message = 'Visita atualizada com sucesso!';
             response.stats = true;
@@ -58,7 +58,5 @@ async function updateVisita(req: Request, res: Response) {
 
     res.send(response);
 }
-
-
 
 export const VisitaRouter: Router = router;
