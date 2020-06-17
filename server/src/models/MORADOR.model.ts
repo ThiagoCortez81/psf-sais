@@ -1,16 +1,17 @@
-export class FuncionarioModel {
-    ID_perfil: string;
+export class MORADORModel {
     nome: string;
     cpf: string;
     sexo: string;
     dataNascimento: string;
+    telefone: string;
+    nrCartaoSUS: string;
     logradouro: string;
-    numero: string;
+    numero: number;
     bairro: string;
     cidade: string;
     cep: string;
     estado: string;
     ativo: number;
-    login: string;
-    senha: string;
+    ID_PSF: number;
+
 }
