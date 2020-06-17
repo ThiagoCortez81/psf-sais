@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     login: '',
     senha: ''
   }
-  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private tokenStorage: TokenStorageService) {}
+  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }
@@ -25,10 +25,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.toastr.success(loginResp['message'], "Sucesso!");
       this.tokenStorage.saveToken(loginResp['token']);
       this.tokenStorage.saveUser(loginResp['dadosUsuario']);
-      if (loginResp['dadosUsuario']['id_perfil'] == 1 || loginResp['dadosUsuario']['id_perfil'] == 9) {
-        this.router.navigate(['/psf']);
-      } else { 
-        this.router.navigate(['/moradores']);
+      if (loginResp['dadosUsuario']['primeiroAcesso'] == 1) {
+        this.router.navigate(['/primeiro-acesso']);
+      } else {
+        if (loginResp['dadosUsuario']['id_perfil'] == 1 || loginResp['dadosUsuario']['id_perfil'] == 9) {
+          this.router.navigate(['/psf']);
+        } else {
+          this.router.navigate(['/moradores']);
+        }
       }
     } else {
       this.toastr.error(loginResp['message'], "Ops!");

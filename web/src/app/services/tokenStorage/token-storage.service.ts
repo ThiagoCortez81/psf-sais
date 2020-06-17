@@ -21,7 +21,10 @@ export class TokenStorageService {
   }
 
   public getToken(): string {
-    return sessionStorage.getItem(TOKEN_KEY);
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    if (token != null)
+      return token;
+    return '';
   }
 
   public saveUser(user) {

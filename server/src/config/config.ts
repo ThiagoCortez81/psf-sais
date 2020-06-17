@@ -8,7 +8,6 @@ export class PSFSaisServerConfiguration {
         const loginResponse = new LoginResponse();
 
         var token = req.headers['x-authentication-token'];
-        console.log('token', token);
         if (!token) {
             loginResponse.stats = false;
             loginResponse.message = "Favor realizar o login antes de continuar."
@@ -23,6 +22,7 @@ export class PSFSaisServerConfiguration {
             }
 
             // se tudo estiver ok, salva no request para uso posterior
+            req['user'] = decoded;
             next();
         });
     }

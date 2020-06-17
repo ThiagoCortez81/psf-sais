@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TokenStorageService } from './tokenStorage/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class WebserviceService {
   URL_SERVER: string = 'http://localhost:5000/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
 
   // PSF
   public async listPSF(idPSF?: string) {
@@ -50,6 +51,10 @@ export class WebserviceService {
     return await this.doPost('auth/login', loginReq);
   }
 
+  public async alteraSenhaPrimeiroAcesso(dadosAcesso: any) {
+    return await this.doPost('auth/alteraSenhaPrimeiroAcesso', dadosAcesso);
+  }
+
   public async listFuncionario(id?: string) {
     if (id) {
       return await this.doGet('funcionario/list', id);
@@ -88,7 +93,7 @@ export class WebserviceService {
   // Métodos
   private async doPost(endpoint: string, body: any) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
-    return await this.http.post<any>(`${this.URL_SERVER}${endpoint}`, body).toPromise();
+    return await this.http.post<any>(`${this.URL_SERVER}${endpoint}`, body, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
   }
 
   private async doPut(endpoint: string, body: any, id: string) {
