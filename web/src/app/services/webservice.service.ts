@@ -54,7 +54,7 @@ export class WebserviceService {
       return await this.doGet('visita/list', idVisita);
     }
 
-    return await this.doGet('visita/list', idVisita);
+    return await this.doGet('visita/list');
   }
 
   public async visitaAdd(visitaEntity: any): Promise<boolean> {
