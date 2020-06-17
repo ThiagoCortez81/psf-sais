@@ -19,15 +19,12 @@ import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
-<<<<<<< HEAD
 import { PrimeiroAcessoComponent } from './pages/primeiro-acesso/primeiro-acesso.component';
-=======
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AgendaComponent } from './pages/agenda/agenda.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
->>>>>>> aa14876fd7df2bb0cd3db5b16735e8aed1dbdf45
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -59,11 +56,8 @@ export function momentAdapterFactory() {
     AddUpdatePsfComponent,
     FuncionarioComponent,
     AddUpdateFuncionarioComponent,
-<<<<<<< HEAD
-    PrimeiroAcessoComponent
-=======
+    PrimeiroAcessoComponent,
     AgendaComponent
->>>>>>> aa14876fd7df2bb0cd3db5b16735e8aed1dbdf45
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
