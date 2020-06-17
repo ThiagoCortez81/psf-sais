@@ -1,8 +1,12 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, ElementRef, OnInit } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import { WebserviceService } from 'src/app/services/webservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 const colors: any = {
   green: {
@@ -26,7 +30,7 @@ const colors: any = {
   templateUrl: './agenda.component.html',
   styleUrls: ['./agenda.component.css']
 })
-export class AgendaComponent {
+export class AgendaComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
@@ -63,30 +67,36 @@ export class AgendaComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: addDays(startOfDay(new Date()), 2),
-      title: 'João da Silva',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'Melise Paula',
-      color: colors.green,
-      actions: this.actions,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'Rafael Frinhani',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-  ];
+  // events: CalendarEvent[] = [
+  //   {
+  //     start: addDays(startOfDay(new Date()), 2),
+  //     title: 'João da Silva',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //   },
+  //   {
+  //     start: startOfDay(new Date()),
+  //     title: 'Melise Paula',
+  //     color: colors.green,
+  //     actions: this.actions,
+  //   },
+  //   {
+  //     start: startOfDay(new Date()),
+  //     title: 'Rafael Frinhani',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //   },
+  // ];
+
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef) {}
+
+  ngOnInit(): void {
+    this.listaVisitas();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -152,5 +162,32 @@ export class AgendaComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  async listaVisitas() {
+    const visitas = await this.ws.listVisita();
+   
+    let events: Array<CalendarEvent> = [];
+    let color: any;
+
+   visitas.data.forEach(visita => {
+
+      switch (visita.status){
+          case 'Agendada': color = colors.yellow; break;
+          case 'Realizada': color = colors.green; break;
+          case 'Cancelada': color = colors.red; break;
+      }
+
+      events.push({
+        start: new Date(visita.dataAgendada),
+        title: visita.nome,
+        color:  color,
+        actions: this.actions
+      });
+
+   });
+
+    this.events = events;
+    this.refresh.next();
   }
 }
