@@ -15,7 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { PsfComponent } from './pages/psf/psf.component';
+import { VisitaComponent } from './pages/visita/visita.component';
 import { AddUpdatePsfComponent } from './pages/psf/add-update-psf/add-update-psf.component';
+import { AddUpdateVisitaComponent } from './pages/visita/add-update-visita/add-update-visita.component';
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from './pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { DatePipe } from '@angular/common';
@@ -53,7 +55,9 @@ export function momentAdapterFactory() {
     AdminLayoutComponent,
     AuthLayoutComponent,
     PsfComponent,
+    VisitaComponent,
     AddUpdatePsfComponent,
+    AddUpdateVisitaComponent,
     FuncionarioComponent,
     AddUpdateFuncionarioComponent,
     PrimeiroAcessoComponent,
@@ -61,6 +65,6 @@ export function momentAdapterFactory() {
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule { }
