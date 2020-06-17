@@ -7,6 +7,5 @@ import { PrimeiroAcessoComponent } from 'src/app/pages/primeiro-acesso/primeiro-
 export const AuthLayoutRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'primeiro-acesso', component: PrimeiroAcessoComponent },
-    { path: 'register',       component: RegisterComponent }
+    { path: 'primeiro-acesso', component: PrimeiroAcessoComponent }
 ];
