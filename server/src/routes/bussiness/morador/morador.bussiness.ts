@@ -18,7 +18,7 @@ export async function listMorador(ID_morador: string) {
 
 export async function addMorador(moradorModel: MORADORModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("INSERT INTO Morador(cpf, nome, sexo, dataNascimento, telefone, nrCartaoSUS, logradouro, numero, bairro, cidade, cep, estado, ativo, ID_PSF) VALUES (?)", [[moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone, moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF]], function (err, results, fields) {
+        conn.query("INSERT INTO Morador(cpf, nome, sexo, dataNascimento, telefone, nrCartaoSUS, logradouro, numero, bairro, cidade, cep, estado, ativo, ID_PSF) VALUES (?)", [[moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimento, moradorModel.telefone, moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF]], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });
@@ -43,7 +43,7 @@ export async function updateMorador(id: string, moradorModel: MORADORModel) {
         
         
 
-        conn.query(query, [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimeto, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF, id], function (err, results, fields) {
+        conn.query(query, [moradorModel.cpf, moradorModel.nome, moradorModel.sexo, moradorModel.dataNascimento, moradorModel.telefone , moradorModel.nrCartaoSUS, moradorModel.logradouro, moradorModel.numero, moradorModel.bairro, moradorModel.cidade, moradorModel.cep, moradorModel.estado, moradorModel.ativo, moradorModel.ID_PSF, id], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });

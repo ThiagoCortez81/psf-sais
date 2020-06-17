@@ -2,7 +2,7 @@ export class MORADORModel {
     nome: string;
     cpf: string;
     sexo: string;
-    dataNascimeto: string;
+    dataNascimento: string;
     telefone: string;
     nrCartaoSUS: string;
     logradouro: string;

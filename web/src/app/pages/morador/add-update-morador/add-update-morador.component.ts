@@ -50,6 +50,7 @@ export class AddUpdateMoradorComponent implements OnInit {
 
       listMorador.data[0].dataNascimento = this.transformDate(listMorador.data[0].dataNascimento);
       this.moradorObject = listMorador.data[0];
+      console.log(this.moradorObject);
     } else {
       this.toastr.error('Morador inválido', "Ops!");
       this.router.navigate(['/morador']);
@@ -71,6 +72,7 @@ export class AddUpdateMoradorComponent implements OnInit {
   }
 
   async atualizarMorador() {
+    console.log(this.moradorObject)
     const moradorAddResponse = await this.ws.moradorAtualizar(this.moradorObject);
 
     if (moradorAddResponse != null) {

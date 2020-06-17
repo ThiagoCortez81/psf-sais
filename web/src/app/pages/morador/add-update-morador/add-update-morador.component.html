@@ -18,11 +18,11 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <div class="col-10">
+                        <div class="col-6 d-flex justify-content-start">
                             <h3 *ngIf="!moradorObject.ID_morador" class="mb-0">Incluir Morador</h3>
                             <h3 *ngIf="moradorObject.ID_morador" class="mb-0">Atualizar Morador</h3>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6 d-flex justify-content-end">
                             <button *ngIf="!moradorObject.ID_morador" (click)="addMorador()" class="btn btn-md btn-success float-left text-white">Incluir Morador</button>
                             <button *ngIf="moradorObject.ID_morador" (click)="atualizarMorador()" class="btn btn-md btn-success float-left text-white">Atualizar Morador</button>
                         </div>
@@ -43,7 +43,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-username">CPF</label>
-                                        <input type="text" [(ngModel)]="moradorObject.cpf" name="cpf"
+                                        <input type="text" [(ngModel)]="moradorObject.cpf" name="cpf" maxlength="11"
                                             class="form-control form-control-alternative" placeholder="CPF">
                                     </div>
                                 </div>
@@ -73,14 +73,14 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="dataNascimento">Data de Nascimento</label>
-                                        <input max='2020-05-06' type="date" [(ngModel)]="moradorObject.dataNascimeto" name="dataNascimento" id="dataNascimento" class="form-control form-control-alternative">
+                                        <input max='2099-05-06' type="date" [(ngModel)]="moradorObject.dataNascimento" name="dataNascimento" id="dataNascimento" class="form-control form-control-alternative">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Nome do PSF</label>
-                                        <select type="text" [(ngModel)]="moradorObject.ID_PSF" name="nome" class="form-control form-control-alternative">
+                                        <select type="text" [(ngModel)]="moradorObject.ID_PSF" name="ID_PSF" class="form-control form-control-alternative">
                                             <option *ngFor="let psf of psfArr | keyvalue" [value]="psf.key"> {{psf.key}} - {{psf.value.nome}}</option>
                                         </select>
                                     </div>
