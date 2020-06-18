@@ -1,10 +1,11 @@
-
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { WebserviceService } from '../../services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
+
+import { AddUpdateVisitaComponent } from './add-update-visita/add-update-visita.component';
 
 @Component({
   selector: 'app-visita',
@@ -52,7 +53,7 @@ export class VisitaComponent implements OnInit {
         // { name: 'Necessita de enfermeiro?', data: 'necEnfermeiro', orderable: true },
         //{ name: 'Necessita de curativo?', data: 'necCurativo', orderable: true },
         // { name: 'Utiliza Farmácia Popular?', data: 'utilFarmPopular', orderable: true },
-         { name: 'Status', data: 'status', orderable: true },
+        { name: 'Status', data: 'status', orderable: true },
         //  { name: 'Observações', data: 'obs', orderable: true },
         // { name: 'Localização', data: 'local', orderable: true },
         {
@@ -95,29 +96,51 @@ export class VisitaComponent implements OnInit {
 
   public async desativar(ref: MouseEvent) {
 
-    alert('Desativar');
-    // const id = ref.srcElement['value'];
-    // const visitaDeleteResponse = await this.ws.visitaDelete(id);
-
-    // if (visitaDeleteResponse != null) {
-    //   if (visitaDeleteResponse['stats']) {
-    //     this.toastr.success(visitaDeleteResponse['message'], 'Sucesso!');
-    //     // buscando dados
-    //     this.ngOnInit();
-    //   } else {
-    //     console.log('aqui');
-    //     this.toastr.error(visitaDeleteResponse['message'], 'Ops!');
-    //   }
-    // } else {
-    //   this.toastr.error('Tente novamente!', 'Ops!');
-    // }
+    swal.fire({
+      title: 'Você tem certeza?',
+      text: 'A visita não poderá ser realizada!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, quero cancelar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        swal.fire({
+          title: 'Explique a razão do cancelamento da visita',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off'
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Confirmar',
+          showLoaderOnConfirm: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.value) {
+            this.cancelaVisita(ref.srcElement['value'], result.value.toString());
+          }
+        })
+      }
+    })
   }
 
   public async editar(ref: MouseEvent) {
-    // const id = ref.srcElement['value'];
+    const id = ref.srcElement['value'];
 
-    // this.router.navigate(['visita/edit/', id]);
-    alert('Editar')
+    this.router.navigate(['visita/edit/', id]);
+    // swal.fire('Funcionário Incluído Com Sucesso!', `Deu certo o Editar!`, 'success');
+  }
+
+  async cancelaVisita(id: string, obs: string) {
+    const cancelaVisitaResponse = await this.ws.cancelaVisita(id, obs);
+    if (cancelaVisitaResponse['stats'] == true) {
+      this.ngOnInit();
+      swal.fire('Sucesso!', `A visita foi cancelada com sucesso! <br>Motivo: <strong>${obs}</strong>`, 'success');
+    } else {
+      swal.fire('Erro!', `A visita não foi cancelada! Tente novamente.`, 'error');
+    }
   }
 
 

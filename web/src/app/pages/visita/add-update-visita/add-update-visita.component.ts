@@ -23,6 +23,7 @@ export class AddUpdateVisitaComponent implements OnInit {
 
   public posicao: any;
 
+  // tslint:disable-next-line: max-line-length
   constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class AddUpdateVisitaComponent implements OnInit {
 
   async buscaVisita(id: string) {
     const listVisita = await this.ws.listVisita(id);
-    if (listVisita && listVisita.data && listVisita.data.lenght > 0) {
+    if (listVisita && listVisita.data && listVisita.data.length > 0) {
       listVisita.data[0].dataAgendada = this.transformDate(listVisita.data[0].dataAgendada);
       this.visitaObject = listVisita.data[0];
     } else {

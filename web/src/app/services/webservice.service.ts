@@ -62,6 +62,14 @@ export class WebserviceService {
       return await this.doPost('visita/add', visitaEntity);
     }
   }
+
+  public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      const id = visitaEntity['ID_Visita'];
+      delete visitaEntity['ID_Visita'];
+      return await this.doPut('visita/update', visitaEntity, id);
+    }
+  }
   public async visitaDelete(psfEntity: any): Promise<boolean> {
     if (psfEntity != null) {
       return await this.doDelete('visita/delete', psfEntity);
@@ -69,6 +77,13 @@ export class WebserviceService {
 
     return false;
   }
+
+  public async cancelaVisita(idVisita: string, obs: string): Promise<any> {
+    if (idVisita) {
+      return await this.doPut('visita/cancela', {obs: obs} , idVisita);
+    }
+  }
+  // ============================================================================================ //
 
   // Funcionario
   public async fazLogin(loginReq: any) {
@@ -99,13 +114,7 @@ export class WebserviceService {
     return false;
   }
 
-  public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
-    if (visitaEntity != null) {
-      const id = visitaEntity['ID_Visita'];
-      delete visitaEntity['ID_Visita'];
-      return await this.doPut('visita/update', visitaEntity, id);
-    }
-  }
+
   public async funcionarioAdd(funcionarioEntity: any): Promise<boolean> {
     if (funcionarioEntity != null) {
       return await this.doPost('funcionario/add', funcionarioEntity);
