@@ -7,8 +7,8 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { PsfComponent } from 'src/app/pages/psf/psf.component';
 import { AddUpdatePsfComponent } from 'src/app/pages/psf/add-update-psf/add-update-psf.component';
-import { VisitaComponent } from '../../pages/visita/visita.component';
-import { AddUpdateVisitaComponent } from '../../pages/visita/add-update-visita/add-update-visita.component';
+import { VisitaComponent } from 'src/app/pages/visita/visita.component';
+import { AddUpdateVisitaComponent } from 'src/app/pages/visita/add-update-visita/add-update-visita.component';
 import { FuncionarioComponent } from 'src/app/pages//funcionario/funcionario.component';
 import { AddUpdateFuncionarioComponent } from 'src/app/pages/funcionario/add-update-funcionario/add-update-funcionario.component';
 import { AuthGuardService } from 'src/app/services/authGuard/auth-guard.service';

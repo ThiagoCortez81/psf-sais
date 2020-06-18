@@ -48,6 +48,16 @@ export async function addVisita(visitaModel: VisitaModel) {
 
     });
 }
+
+export async function cancelaVisita(id: string, obs: string) {
+    return new Promise(function (resolve, reject) {
+        const query = `UPDATE Visita SET status = 'Cancelada', observacao = ? WHERE ID_Visita = ?`;
+        conn.query(query, [obs, id], function (err, results, fields) {
+            if (err) { console.log(err); return resolve(false); }
+            return resolve(true);
+        })
+    })
+}
 /*
 export async function addVisita(visitaModel: VisitaModel) {
     return new Promise(function (resolve, reject) {

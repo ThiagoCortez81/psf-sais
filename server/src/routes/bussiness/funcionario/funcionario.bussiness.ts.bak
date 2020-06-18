@@ -12,22 +12,6 @@ export async function loginFuncionario(loginData: LoginReq) {
     });
 }
 
-export async function atualizaSenhaFuncionario(idFuncionario: number, novaSenha: string) {
-    return new Promise(function (resolve, reject) {
-
-        let query: string = `
-        UPDATE Funcionario 
-        SET senha = MD5(?), primeiroAcesso = 0, dataModificacao = NOW()
-        WHERE Id_Func = ?
-        `;
-
-        conn.query(query, [novaSenha, idFuncionario], function (err, results, fields) {
-            if (err) { console.log(err); return resolve(false); }
-            return resolve(true);
-        });
-    });
-}
-
 export async function listFuncionario(idFuncionario: number) {
     return new Promise(function (resolve, reject) {
 
