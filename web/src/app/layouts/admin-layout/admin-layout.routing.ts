@@ -15,6 +15,7 @@ import { MoradorComponent } from 'src/app/pages/morador/morador.component';
 import { AddUpdateMoradorComponent } from 'src/app/pages/morador/add-update-morador/add-update-morador.component';
 import { AuthGuardService } from 'src/app/services/authGuard/auth-guard.service';
 import { AgendaComponent } from 'src/app/pages/agenda/agenda.component';
+import { AgendaViewComponent } from 'src/app/pages/agenda/agenda-view/agenda-view.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -41,5 +42,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'visita', component: VisitaComponent, canActivate: [AuthGuardService] },
     { path: 'visita/add', component: AddUpdateVisitaComponent, canActivate: [AuthGuardService] },
     { path: 'visita/edit/:id', component: AddUpdateVisitaComponent, canActivate: [AuthGuardService] },
-    { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuardService] }
+    { path: 'agenda', component: AgendaComponent, canActivate: [AuthGuardService] },
+    { path: 'agenda/view/:id', component: AgendaViewComponent, canActivate: [AuthGuardService] }
 ];

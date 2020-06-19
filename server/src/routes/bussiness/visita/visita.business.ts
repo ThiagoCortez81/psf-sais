@@ -87,7 +87,12 @@ export async function addVisita(visitaModel: VisitaModel) {
 
 export async function updateVisita(id: string, visitaModel: VisitaModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("UPDATE Visita SET dataAgendada = ?, dataRealizada = ?, localizacao = ?, tipo = ?, necInjetaveis = ?, necEspecialista = ?, necEnfermeiro = ?, necCurativo = ?, usaFarmPopular = ?, status = ?, obs = ? WHERE ID_VISITA = ?", [visitaModel.dataAgendada, visitaModel.dataRealizada, visitaModel.localizacao, visitaModel.tipo, visitaModel.necInjetaveis, visitaModel.necEspecialista, visitaModel.necEnfermeiro, visitaModel.necCurativo, visitaModel.usaFarmPopular, visitaModel.status, visitaModel.obs], function (err, results, fields) {
+        let query: string = `
+        UPDATE Visita
+        SET dataAgendada = ?, tipo = ?, ID_morador = ?
+        WHERE ID_visita = ?
+        `
+        conn.query(query, [visitaModel.dataAgendada, visitaModel.tipo, visitaModel.ID_morador, visitaModel.ID_visita], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
             return resolve(true);
         });

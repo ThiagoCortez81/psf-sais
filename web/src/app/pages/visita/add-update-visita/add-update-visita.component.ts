@@ -92,6 +92,7 @@ export class AddUpdateVisitaComponent implements OnInit {
   }
 
   async atualizarVisita() {
+    console.log(this.visitaObject);
     const visitaAddResponse = await this.ws.visitaAtualizar(this.visitaObject);
     if (visitaAddResponse != null) {
       if (visitaAddResponse['stats']) {

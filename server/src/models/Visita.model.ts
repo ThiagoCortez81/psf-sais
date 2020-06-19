@@ -12,4 +12,5 @@ export class VisitaModel {
     obs: string;
     ID_morador;
     ID_funcionario: number;
+    ID_visita;
 }

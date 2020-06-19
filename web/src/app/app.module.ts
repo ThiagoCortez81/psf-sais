@@ -33,6 +33,7 @@ import * as moment from 'moment';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { AgendaViewComponent } from './pages/agenda/agenda-view/agenda-view.component';
 
 registerLocaleData(localePt);
 
@@ -67,6 +68,7 @@ export function momentAdapterFactory() {
     PrimeiroAcessoComponent,
     AddUpdateMoradorComponent,
     AgendaComponent,
+    AgendaViewComponent,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
