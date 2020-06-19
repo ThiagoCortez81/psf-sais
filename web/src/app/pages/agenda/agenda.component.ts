@@ -131,8 +131,9 @@ export class AgendaComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
+    console.log(event.id, 'clicou')
   }
 
   addEvent(): void {
