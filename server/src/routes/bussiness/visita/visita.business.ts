@@ -25,6 +25,22 @@ export async function listVisita(idVisita?: string) {
     });
 }
 
+export async function listVisitaFunc(idVisita: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT Visita_Func.*, nome 
+        FROM Visita_Func
+        INNER JOIN Funcionario
+            ON Funcionario.ID_func = Visita_Func.ID_func
+        WHERE ID_visita = ?
+        `;
+        conn.query(query, [idVisita], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+
 export async function addVisita(visitaModel: VisitaModel) {
     return new Promise(function (resolve, reject) {
         let query = `

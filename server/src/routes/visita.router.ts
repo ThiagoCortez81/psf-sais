@@ -8,6 +8,7 @@ const router: Router = Router();
 
 router.get('/list', listVisita);
 router.get('/list/:id', listVisita);
+router.get('/listFunc/:id', listVisitaFunc);
 router.post('/add', addVisita);
 router.put('/update/:id', updateVisita);
 router.put('/cancela/:id', cancelaVisita);
@@ -17,6 +18,12 @@ async function listVisita(req: Request, res: Response) {
     const id = (req.params.id);
 
     res.send({data: await Bussiness.listVisita(id)});
+}
+
+async function listVisitaFunc(req: Request, res: Response) {
+    const id = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaFunc(id)});
 }
 
 async function addVisita(req: Request, res: Response) {

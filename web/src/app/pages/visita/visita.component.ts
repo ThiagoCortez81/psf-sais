@@ -45,19 +45,35 @@ export class VisitaComponent implements OnInit {
       columns: [
         // { name: 'ID da visita', data: 'id', orderable: true },
         { name: 'Nome morador', data: 'nome', orderable: true },
-        { name: 'Data agendada', data: 'dataAgendada', orderable: true },
-        // { name: 'Data de retorno', data: 'dataRetorno', orderable: true },
-        { name: 'Tipo da visita', data: 'tipo', orderable: true },
-        // { name: 'Necessita de injetáveis?', data: 'necInjetaveis', orderable: true },
-        // { name: 'Necessita de especialista?', data: 'necEspecialista', orderable: true },
-        // { name: 'Necessita de enfermeiro?', data: 'necEnfermeiro', orderable: true },
-        //{ name: 'Necessita de curativo?', data: 'necCurativo', orderable: true },
-        // { name: 'Utiliza Farmácia Popular?', data: 'utilFarmPopular', orderable: true },
-        { name: 'Status', data: 'status', orderable: true },
-        //  { name: 'Observações', data: 'obs', orderable: true },
-        // { name: 'Localização', data: 'local', orderable: true },
         {
-          name: 'Ações', data: (row) => {
+          name: 'Data Agendada', data: (row: any) => {
+            return `
+              <td>${this.transformDate(row.dataAgendada)}</td>
+            `;
+          },
+          orderable: true
+        },
+        { name: 'Tipo da visita', data: 'tipo', orderable: true },
+        {
+          name: 'Status', data: (row: any) => {
+            let color: string;
+            switch (row.status){
+              // case 'Agendada': color = '#E0C135'; break;
+              // case 'Cancelada': color = '#FE0F17'; break;
+              // case 'Realizada': color = '#1CFE3E'; break;
+              case 'Agendada': color = 'badge badge-primary'; break;
+              case 'Cancelada': color = 'badge badge-danger'; break;
+              case 'Realizada': color = 'badge badge-success'; break;
+            }
+            return `
+              <td><label class="${color}">${row.status}</label</td>
+            `;
+          },
+          orderable: true
+        },
+        // { name: 'Status', data: 'status', orderable: true },
+        {
+          name: 'Ações', data: (row: any) => {
             return `
               <button type="button" class="btn btn-sm btn-success edita-btn" value="${row.ID_visita}">Editar</button>
               <button type="button" class="btn btn-sm btn-danger desativa-btn" value="${row.ID_visita}">Cancelar</button>
@@ -66,6 +82,7 @@ export class VisitaComponent implements OnInit {
           orderable: false
         },
       ],
+      order: [1, 'asc']
     });
 
     setInterval((that) => {
@@ -91,7 +108,7 @@ export class VisitaComponent implements OnInit {
   }
 
   transformDate(date) {
-    return this.datePipe.transform(date, 'yyyy-MM-dd');
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
 
   public async desativar(ref: MouseEvent) {

@@ -19,12 +19,13 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-6 d-flex justify-content-start">
-              <h3 class="mb-0">Agendar Visita</h3>
+              <h3 *ngIf="!visitaObject.ID_visita" class="mb-0">Agendar Visita</h3>
+              <h3 *ngIf="visitaObject.ID_visita" class="mb-0">Atualizar Visita</h3>
             </div>
             <div class="col-6 d-flex justify-content-end">
-              <button *ngIf="!visitaObject.ID_VISITA" (click)="addVisita()"
+              <button *ngIf="!visitaObject.ID_visita" (click)="addVisita()"
                 class="btn btn-md btn-success float-left text-white">Incluir Visita</button>
-              <button *ngIf="visitaObject.ID_VISITA" (click)="atualizarVisita()"
+              <button *ngIf="visitaObject.ID_visita" (click)="atualizarVisita()"
                 class="btn btn-md btn-success float-left text-white">Atualizar PSF</button>
             </div>
           </div>
@@ -39,8 +40,7 @@
                     <label class="form-control-label" for="input-nome-morador">Nome do Morador</label>
                     <select type="text" name="nome-morador" [(ngModel)]="visitaObject.ID_morador"
                       class="form-control form-control-alternative">
-                      <option value="10">10</option>
-                      <option value="13">13</option>
+                      <option *ngFor="let morador of moradorArr" [value]="morador.ID_morador">{{morador.nome}}</option>
                     </select>
                   </div>
                 </div>
@@ -58,30 +58,12 @@
                     <label class="form-control-label" for="input-nome-funcionario">Funcionários da Visita</label>
                     <select type="text" [(ngModel)]="visitaObject.ID_funcionario" name="nome-funcionario"
                       class="form-control form-control-alternative">
-                      <option *ngFor=" let funcionario of funcionarioArr.data" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
-                      <!-- <option value="17">João da Silva</option>
-                      <option value="18">José Benedito</option>
-                      <option value="19">Lucas Silva</option>
-                      <option value="20">Marcos Tadeu</option> -->
+                      <option *ngFor=" let funcionario of funcionarioArr" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <!-- <div class="form-group">
-                    <div>
-                      <label class="form-control-label" for="input-tipo-visita">Tipo de Visita</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input [(ngModel)]="visitaObject.tipo" type="radio" id="customRadioInline1" name="customRadioInline1"
-                        class="custom-control-input">
-                      <label class="custom-control-label" for="customRadioInline1">Periódica</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input [(ngModel)]="visitaObject.tipo type="radio" id="customRadioInline2" name="customRadioInline1"
-                        class="custom-control-input">
-                      <label class="custom-control-label" for="customRadioInline2">Emergencial</label>
-                    </div>
-                  </div>-->
+
                   <div class="form-group">
                     <label class="form-control-label" for="input-tipo">Tipo de visita</label>
                     <select type="text" [(ngModel)]="visitaObject.tipo" name="tipo"
@@ -90,102 +72,6 @@
                       <option value="Emergencial">Emergencial</option>
                     </select>
                   </div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-            <!-- Address -->
-            <h6 class="heading-small text-muted mb-4">Informações de Localização</h6>
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-address">Localização</label>
-                    <button class="btn btn-success" (click)='pegarLocalizacao()'>Inclua sua localização</button>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-adddress">Sua localização</label>
-                    <input type="text" [(ngModel)]="visitaObject.localizacao" name="localizacao"
-                      class="form-control form-control-alternative">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4">
-            <!-- Dados do paciente -->
-            <h6 class="heading-small text-muted mb-4">Dados da visita</h6>
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-status">Status</label>
-                    <select type='text' [(ngModel)]='visitaObject.status' name="status"
-                      class="form-control form-control-alternative">
-                      <option value="agendada">Agendada</option>
-                      <option value="realizada">Realizada</option>
-                      <option value="cancelada">Cancelada</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <div>
-                      <label class="form-control-label" for="input-morNaoEncontrado">Morador encontrado</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                        class="custom-control-input">
-                      <label class="custom-control-label" for="customRadioInline1">Sim</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="customRadioInline2" name="customRadioInline1"
-                        class="custom-control-input">
-                      <label class="custom-control-label" for="customRadioInline2">Não</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr class="my-4">
-            <h6 class="heading-small text-muted mb-4">Dados do paciente</h6>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="necInj"
-                    [(ngModel)]='visitaObject.necInjetaveis' name="tantoFaz">
-                  <label class="custom-control-label" for="necInj">Necessita de injetáveis?</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="necEsp"
-                    [(ngModel)]='visitaObject.necEspecialista' name="necEspecialista">
-                  <label class="custom-control-label" for="necEsp">Necessita de especialista?</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="necEnf"
-                    [(ngModel)]='visitaObject.necEnfermeiro' name="tantoFaz">
-                  <label class="custom-control-label" for="necEnf">Necessita de enfermeiro?</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="necCur" [(ngModel)]='visitaObject.necCurativo'
-                    name="tantoFaz">
-                  <label class="custom-control-label" for="necCur">Necessita de curativo?</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="usaFar"
-                    [(ngModel)]='visitaObject.usaFarmPopular' name="tantoFaz">
-                  <label class="custom-control-label" for="usaFar">Usa farmácia popular?</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"></span>
-                  </div>
-                  <textarea class="form-control" aria-label="observacoes" placeholder="Observações"
-                    style="height: 150px; width:auto;" [(ngModel)]='visitaObject.obs ' name="observacao"></textarea>
                 </div>
               </div>
             </div>
