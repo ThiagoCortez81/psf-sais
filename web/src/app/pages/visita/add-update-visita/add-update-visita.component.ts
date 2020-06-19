@@ -4,7 +4,6 @@ import { WebserviceService } from 'src/app/services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { async } from '../../../../../../server/src/routes/bussiness/visita/visita.business';
 
 @Component({
   selector: 'app-add-update-visita',
@@ -76,10 +75,6 @@ export class AddUpdateVisitaComponent implements OnInit {
     this.moradorArr = listMorador.data.filter(element => {
       return element.ativo == 1;
     });
-  }
-
-  async buscaMorador() {
-    this.moradorArr = await this.ws.listMorador();
   }
 
   async addVisita() {
