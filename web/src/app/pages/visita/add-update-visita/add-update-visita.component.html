@@ -1,0 +1,83 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!-- <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <a href="#!" class="btn btn-info">Consultar Funcionários</a>
+        <a href="#!" class="btn btn-info">Editar Funcionários</a>
+        <a href="#!" class="btn btn-info">Desativar Funcionários</a>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-6 d-flex justify-content-start">
+              <h3 *ngIf="!visitaObject.ID_visita" class="mb-0">Agendar Visita</h3>
+              <h3 *ngIf="visitaObject.ID_visita" class="mb-0">Atualizar Visita</h3>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+              <button *ngIf="!visitaObject.ID_visita" (click)="addVisita()"
+                class="btn btn-md btn-success float-left text-white">Incluir Visita</button>
+              <button *ngIf="visitaObject.ID_visita" (click)="atualizarVisita()"
+                class="btn btn-md btn-success float-left text-white">Atualizar Visita</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form #f="ngForm">
+            <h6 class="heading-small text-muted mb-4">Dados da visita</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-nome-morador">Nome do Morador</label>
+                    <select type="text" name="nome-morador" [(ngModel)]="visitaObject.ID_morador"
+                      class="form-control form-control-alternative">
+                      <option *ngFor="let morador of moradorArr" [value]="morador.ID_morador">{{morador.nome}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Data da Visita</label>
+                    <input max='2029-01-01' type="date" [(ngModel)]="visitaObject.dataAgendada" name="dataAgendada"
+                      class="form-control form-control-alternative">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-nome-funcionario">Funcionários da Visita</label>
+                    <select type="text" [(ngModel)]="visitaObject.ID_funcionario" name="nome-funcionario"
+                      class="form-control form-control-alternative">
+                      <option *ngFor=" let funcionario of funcionarioArr" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-tipo">Tipo de visita</label>
+                    <select type="text" [(ngModel)]="visitaObject.tipo" name="tipo"
+                      class="form-control form-control-alternative">
+                      <option value="Periódica">Periódica</option>
+                      <option value="Emergencial">Emergencial</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

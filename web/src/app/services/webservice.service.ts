@@ -46,6 +46,49 @@ export class WebserviceService {
     return false;
   }
 
+  // ============================================================================================ //
+  // Visita
+
+  public async listVisita(idVisita?: string) {
+    if (idVisita) {
+      return await this.doGet('visita/list', idVisita);
+    }
+
+    return await this.doGet('visita/list');
+  }
+
+  public async listVisitaFunc(idVisita: string) {
+    return await this.doGet('visita/listFunc', idVisita);
+  }
+
+  public async visitaAdd(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      return await this.doPost('visita/add', visitaEntity);
+    }
+  }
+
+  public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      const id = visitaEntity['ID_Visita'];
+      delete visitaEntity['ID_Visita'];
+      return await this.doPut('visita/update', visitaEntity, id);
+    }
+  }
+  public async visitaDelete(psfEntity: any): Promise<boolean> {
+    if (psfEntity != null) {
+      return await this.doDelete('visita/delete', psfEntity);
+    }
+
+    return false;
+  }
+
+  public async cancelaVisita(idVisita: string, obs: string): Promise<any> {
+    if (idVisita) {
+      return await this.doPut('visita/cancela', {obs: obs} , idVisita);
+    }
+  }
+  // ============================================================================================ //
+
   // Funcionario
   public async fazLogin(loginReq: any) {
     return await this.doPost('auth/login', loginReq);
@@ -60,7 +103,7 @@ export class WebserviceService {
       return await this.doGet('funcionario/list', id);
     }
 
-    return await this.doGet('funcionario/list', id);
+    return await this.doGet('funcionario/list');
   }
 
   public async listPerfil() {
@@ -75,6 +118,7 @@ export class WebserviceService {
     return false;
   }
 
+
   public async funcionarioAdd(funcionarioEntity: any): Promise<boolean> {
     if (funcionarioEntity != null) {
       return await this.doPost('funcionario/add', funcionarioEntity);
@@ -82,6 +126,8 @@ export class WebserviceService {
 
     return false;
   }
+
+  // ============================================================================================ //
 
   public async funcionarioAtualizar(funcionarioEntity: any): Promise<boolean> {
     if (funcionarioEntity != null) {
@@ -93,6 +139,43 @@ export class WebserviceService {
 
     return false;
   }
+   //Morador
+   public async listMorador(id?: string) {
+    if (id) {
+      return await this.doGet('morador/list', id);
+    }
+
+    return await this.doGet('morador/list');
+  }
+
+  public async moradorDelete(id: any): Promise<boolean> {
+    if (id != null) {
+      return await this.doDelete('morador/delete', id);
+    }
+
+    return false;
+  }
+
+  public async moradorAdd(moradorEntity: any): Promise<boolean> {
+    if (moradorEntity != null) {
+      return await this.doPost('morador/add', moradorEntity);
+    }
+
+    return false;
+  }
+
+  public async moradorAtualizar(moradorEntity: any): Promise<boolean> {
+    if (moradorEntity != null) {
+      const id = moradorEntity['ID_morador'];
+      delete moradorEntity['ID_morador'];
+      
+      return await this.doPut('morador/update', moradorEntity, id);
+    }
+
+    return false;
+  }
+
+
 
   public async listEstados() {
     return await this.doGetWithURL('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
@@ -116,7 +199,7 @@ export class WebserviceService {
   private async doGet(endpoint: string, id?: string) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     if (id)
-      return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
+      return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
     return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
   }
 
@@ -131,4 +214,8 @@ export class WebserviceService {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     return await this.http.delete<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
   }
+
+ 
+  
+
 }

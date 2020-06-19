@@ -26,7 +26,7 @@ async function addPSF(req: Request, res: Response) {
         if (await Bussiness.addPSF(psf)) {
             response.message = 'PSF inserido com sucesso!';
             response.stats = true;
-        } else {
+        } else { 
             response.message = 'Erro ao inserir PSF, tente novamente.';
             response.stats = false;
         }

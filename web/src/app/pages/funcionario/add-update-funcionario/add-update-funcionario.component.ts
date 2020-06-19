@@ -63,7 +63,7 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     const listFuncionario = await this.ws.listFuncionario(id);
 
     if (listFuncionario && listFuncionario.data && listFuncionario.data.length > 0) {
-      
+
       listFuncionario.data[0].dataNascimento = this.transformDate(listFuncionario.data[0].dataNascimento);
 
       this.funcionarioObject = listFuncionario.data[0];
