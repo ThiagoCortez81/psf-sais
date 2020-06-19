@@ -4,6 +4,7 @@ import { WebserviceService } from 'src/app/services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { async } from '../../../../../../server/src/routes/bussiness/visita/visita.business';
 
 @Component({
   selector: 'app-add-update-visita',
@@ -17,9 +18,11 @@ export class AddUpdateVisitaComponent implements OnInit {
     dataAgendada: '',
     localizacao: '',
     tipo: '',
+    ID_funcionario: 0
   };
 
   funcionarioArr = [];
+  moradorArr = [];
 
   public posicao: any;
 
@@ -33,6 +36,7 @@ export class AddUpdateVisitaComponent implements OnInit {
     }
 
     this.buscaFuncionario();
+    this.buscaMorador();
   }
 
 
@@ -53,6 +57,10 @@ export class AddUpdateVisitaComponent implements OnInit {
 
   async buscaFuncionario () {
     this.funcionarioArr = await this.ws.listFuncionario();
+  }
+
+  async buscaMorador() {
+    this.moradorArr = await this.ws.listMorador();
   }
 
   async addVisita() {
@@ -84,17 +92,17 @@ export class AddUpdateVisitaComponent implements OnInit {
     }
   }
 
-  public pegarLocalizacao() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(position);
-      }, function(error) {
-        console.log(error);
-      });
-    } else {
-      alert('Ops, não foi possível acessar sua localização!');
-    }
-  }
+  // public pegarLocalizacao() {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition(function(position) {
+  //       console.log(position);
+  //     }, function(error) {
+  //       console.log(error);
+  //     });
+  //   } else {
+  //     alert('Ops, não foi possível acessar sua localização!');
+  //   }
+  // }
 }
 
 

@@ -53,7 +53,17 @@ export class VisitaComponent implements OnInit {
         // { name: 'Necessita de enfermeiro?', data: 'necEnfermeiro', orderable: true },
         //{ name: 'Necessita de curativo?', data: 'necCurativo', orderable: true },
         // { name: 'Utiliza Farmácia Popular?', data: 'utilFarmPopular', orderable: true },
-        { name: 'Status', data: 'status', orderable: true },
+        {
+          name: 'Status', data: (row) => {
+            if (row.status == 'Cancelada') {
+              return '<span class="badge badge-danger">Cancelada</span>';
+            } else if (row.status == 'Agendada') {
+              return '<span class="badge badge-dark">Agendada</span>';
+            } else if (row.status == 'Realizada') {
+              return '<span class="badge badge-success">Realizada</span>';
+            }
+          }, orderable: true
+        },
         //  { name: 'Observações', data: 'obs', orderable: true },
         // { name: 'Localização', data: 'local', orderable: true },
         {
@@ -128,9 +138,7 @@ export class VisitaComponent implements OnInit {
 
   public async editar(ref: MouseEvent) {
     const id = ref.srcElement['value'];
-
     this.router.navigate(['visita/edit/', id]);
-    // swal.fire('Funcionário Incluído Com Sucesso!', `Deu certo o Editar!`, 'success');
   }
 
   async cancelaVisita(id: string, obs: string) {
@@ -142,6 +150,4 @@ export class VisitaComponent implements OnInit {
       swal.fire('Erro!', `A visita não foi cancelada! Tente novamente.`, 'error');
     }
   }
-
-
 }
