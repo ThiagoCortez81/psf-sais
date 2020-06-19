@@ -7,6 +7,7 @@ import { WebserviceService } from 'src/app/services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import swal from 'sweetalert2';
 
 const colors: any = {
   green: {
@@ -52,15 +53,14 @@ export class AgendaComponent implements OnInit {
       label: '<i class="fas fa-fw fa-pencil-alt text-blue"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+        this.editar(event);
       },
     },
     {
       label: '<i class="fas fa-fw fa-trash-alt text-danger"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.desativar(event);
       },
     },
   ];
@@ -131,8 +131,9 @@ export class AgendaComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
+    console.log(event.id, 'clicou')
   }
 
   addEvent(): void {
@@ -153,6 +154,7 @@ export class AgendaComponent implements OnInit {
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
+    console.log(eventToDelete);
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
@@ -182,7 +184,8 @@ export class AgendaComponent implements OnInit {
         start: new Date(visita.dataAgendada),
         title: visita.nome,
         color:  color,
-        actions: this.actions
+        actions: this.actions,
+        id: visita.ID_visita
       });
 
    });
@@ -190,4 +193,54 @@ export class AgendaComponent implements OnInit {
     this.events = events;
     this.refresh.next();
   }
+
+  public async desativar(event: CalendarEvent) {
+
+    swal.fire({
+      title: 'Você tem certeza?',
+      text: 'A visita não poderá ser realizada!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, quero cancelar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        swal.fire({
+          title: 'Explique a razão do cancelamento da visita',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off'
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Confirmar',
+          showLoaderOnConfirm: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.value) {
+            this.cancelaVisita(event.id, result.value.toString());
+          }
+        })
+      }
+    })
+  }
+
+  async cancelaVisita(id: any, obs: string) {
+    const cancelaVisitaResponse = await this.ws.cancelaVisita(id, obs);
+    if (cancelaVisitaResponse['stats'] == true) {
+      this.ngOnInit();
+      swal.fire('Sucesso!', `A visita foi cancelada com sucesso! <br>Motivo: <strong>${obs}</strong>`, 'success');
+    } else {
+      swal.fire('Erro!', `A visita não foi cancelada! Tente novamente.`, 'error');
+    }
+  }
+
+  async editar(event: CalendarEvent) {
+    const id = event.id;
+
+    this.router.navigate(['visita/edit/', id]);
+    // swal.fire('Funcionário Incluído Com Sucesso!', `Deu certo o Editar!`, 'success');
+  }
+  
 }

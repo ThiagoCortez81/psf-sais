@@ -57,6 +57,10 @@ export class WebserviceService {
     return await this.doGet('visita/list');
   }
 
+  public async listVisitaFunc(idVisita: string) {
+    return await this.doGet('visita/listFunc', idVisita);
+  }
+
   public async visitaAdd(visitaEntity: any): Promise<boolean> {
     if (visitaEntity != null) {
       return await this.doPost('visita/add', visitaEntity);
@@ -141,7 +145,7 @@ export class WebserviceService {
       return await this.doGet('morador/list', id);
     }
 
-    return await this.doGet('morador/list', id);
+    return await this.doGet('morador/list');
   }
 
   public async moradorDelete(id: any): Promise<boolean> {
@@ -195,7 +199,7 @@ export class WebserviceService {
   private async doGet(endpoint: string, id?: string) {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     if (id)
-      return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`).toPromise();
+      return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
     return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
   }
 

@@ -18,7 +18,7 @@ export class AddUpdateVisitaComponent implements OnInit {
     dataAgendada: '',
     localizacao: '',
     tipo: '',
-    ID_funcionario: 0
+    ID_funcionario: ''
   };
 
   funcionarioArr = [];
@@ -33,6 +33,7 @@ export class AddUpdateVisitaComponent implements OnInit {
     let id = this.route.snapshot.params.id;
     if (id != null && id != '') {
       this.buscaVisita(id);
+      this.listVisitaFunc(id);
     }
 
     this.buscaFuncionario();
@@ -49,14 +50,32 @@ export class AddUpdateVisitaComponent implements OnInit {
     if (listVisita && listVisita.data && listVisita.data.length > 0) {
       listVisita.data[0].dataAgendada = this.transformDate(listVisita.data[0].dataAgendada);
       this.visitaObject = listVisita.data[0];
+
     } else {
       this.toastr.error('Visita inválida', 'Ops!');
       this.router.navigate(['/visita']);
     }
   }
 
+  async listVisitaFunc (id: string) {
+    let listFuncionario = await this.ws.listVisitaFunc(id);
+    listFuncionario = listFuncionario.data.filter(element => {return element});
+
+    this.visitaObject.ID_funcionario = listFuncionario[0].ID_func;
+  }
+
   async buscaFuncionario () {
-    this.funcionarioArr = await this.ws.listFuncionario();
+    let listFuncionario = await this.ws.listFuncionario();
+    this.funcionarioArr = listFuncionario.data.filter(element => {
+      return element.ativo == 1;
+    })
+  }
+
+  async buscaMorador () {
+    let listMorador = await this.ws.listMorador();
+    this.moradorArr = listMorador.data.filter(element => {
+      return element.ativo == 1;
+    });
   }
 
   async buscaMorador() {
