@@ -40,7 +40,7 @@ export class VisitaComponent implements OnInit {
           next: '>'
         }
       },
-      buttons: ['copy', 'excel', 'pdf', 'colvis'],
+      buttons: ['copy', 'excel', 'pdf'],
       columns: [
         // { name: 'ID da visita', data: 'id', orderable: true },
         { name: 'Nome morador', data: 'nome', orderable: true },
