@@ -72,7 +72,6 @@ export class AddUpdateMoradorComponent implements OnInit {
   }
 
   async atualizarMorador() {
-    console.log(this.moradorObject)
     const moradorAddResponse = await this.ws.moradorAtualizar(this.moradorObject);
 
     if (moradorAddResponse != null) {
@@ -89,17 +88,8 @@ export class AddUpdateMoradorComponent implements OnInit {
 
 
   async listpsf() {
-
-    //console.log(this.ws.listPSF() + 'eu aqui');
     const listPSF = await this.ws.listPSF();
-    if (listPSF && listPSF.data && listPSF.data.length > 0) {
-
-      this.psfArr = listPSF.data;
-
-
-
-
-    }
+    this.psfArr = listPSF.data.filter(element => {return element.ativo == 1});
   }
 }
 

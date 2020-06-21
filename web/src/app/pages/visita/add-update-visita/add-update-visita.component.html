@@ -1,6 +1,6 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
   <!-- Mask -->
-  <span class="mask bg-gradient-danger opacity-8"></span>
+  <span class="mask bg-gradient-success opacity-8"></span>
   <!-- Header container -->
   <!-- <div class="container-fluid d-flex align-items-center">
     <div class="row">
@@ -57,7 +57,7 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-nome-funcionario">Funcionários da Visita</label>
                     <select type="text" [(ngModel)]="visitaObject.ID_funcionario" name="nome-funcionario"
-                      class="form-control form-control-alternative">
+                      class="form-control form-control-alternative" multiple>
                       <option *ngFor=" let funcionario of funcionarioArr" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
                     </select>
                   </div>

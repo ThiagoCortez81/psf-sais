@@ -46,6 +46,22 @@ export async function listFuncionario(idFuncionario: number) {
     });
 }
 
+export async function listFuncPSF(idFuncionario: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT Func_PSF.*, nome 
+        FROM Func_PSF
+        INNER JOIN PSF
+            ON PSF.ID_PSF = Func_PSF.ID_PSF
+        WHERE ID_func = ? AND Func_PSF.ativo = 1
+        `;
+        conn.query(query, [idFuncionario], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+
 export async function addFuncionario(funcionario: FuncionarioModel) {
     return new Promise(function (resolve, reject) {
         let query: string = `INSERT INTO Funcionario(ID_perfil, nome, cpf, sexo, dataNascimento, logradouro,
@@ -57,6 +73,18 @@ export async function addFuncionario(funcionario: FuncionarioModel) {
 
         conn.query(query, function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
+
+            const ID_func = results.insertId;
+
+            query = `
+                INSERT INTO Func_PSF(ID_func, ID_PSF, ativo) VALUES (?)
+            `;
+
+            funcionario.ID_PSF.forEach(element => {
+                conn.query(query, [[ID_func, element, 1]], function (err, results, fields) {
+                    if (err) { console.log(err); return resolve(false); }
+                });
+            });
             return resolve(true);
         });
     });
@@ -69,14 +97,44 @@ export async function updateFuncionario(idFuncionario: string, funcionario: Func
         UPDATE Funcionario 
         SET ID_perfil = ?, nome = ?, cpf = ?, sexo = ?, dataNascimento = ?, logradouro = ?, numero = ?, 
         bairro = ?, cidade = ?, cep = ?, estado = ?, ativo = ?, login = ?,dataModificacao = NOW()
-        WHERE Id_Func = ?
+        WHERE Id_Func = ?;
+
+        UPDATE Func_PSF SET ativo = 0 WHERE ID_func = ?;
         `;
 
         conn.query(query, [funcionario.ID_perfil, funcionario.nome, funcionario.cpf, funcionario.sexo, funcionario.dataNascimento,
         funcionario.logradouro, funcionario.numero, funcionario.bairro, funcionario.cidade, funcionario.cep, funcionario.estado,
-        funcionario.ativo, funcionario.login, idFuncionario], function (err, results, fields) {
+        funcionario.ativo, funcionario.login, idFuncionario, idFuncionario], function (err, results, fields) {
 
             if (err) { console.log(err); return resolve(false); }
+
+            funcionario.ID_PSF.forEach(ID_PSF => {
+                conn.query(`
+                INSERT INTO Func_PSF(ID_func, ID_PSF, ativo) VALUES (?, ?, 1)
+                ON DUPLICATE KEY UPDATE ativo = 1
+                `, [idFuncionario, ID_PSF], function (err, results, fields) {
+                    if (err) { console.log(err); return resolve(false); }
+                });
+            });
+
+            return resolve(true);
+        });
+    });
+}
+
+export async function updatePassword(idFuncionario: string, funcionario: FuncionarioModel) {
+    return new Promise(function (resolve, reject) {
+
+        let query: string = `
+        UPDATE Funcionario 
+        SET senha= MD5(?), primeiroAcesso = 1 ,dataModificacao = NOW()
+        WHERE Id_Func = ?;
+        `;
+
+        conn.query(query, [funcionario.senha, idFuncionario], function (err, results, fields) {
+
+            if (err) { console.log(err); return resolve(false); }
+
             return resolve(true);
         });
     });

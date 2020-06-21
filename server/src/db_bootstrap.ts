@@ -9,7 +9,8 @@ export let conn = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USERBD,
     password: process.env.PASSWORDBD,
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
+    multipleStatements: true
 });
 
 conn.connect();

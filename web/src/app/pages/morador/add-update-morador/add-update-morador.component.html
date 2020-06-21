@@ -1,6 +1,6 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
     <!-- Mask -->
-    <span class="mask bg-gradient-danger opacity-8"></span>
+    <span class="mask bg-gradient-success opacity-8"></span>
     <!-- Header container -->
     <!-- <div class="container-fluid d-flex align-items-center">
       <div class="row">
@@ -81,7 +81,7 @@
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Nome do PSF</label>
                                         <select type="text" [(ngModel)]="moradorObject.ID_PSF" name="ID_PSF" class="form-control form-control-alternative">
-                                            <option *ngFor="let psf of psfArr | keyvalue" [value]="psf.key"> {{psf.key}} - {{psf.value.nome}}</option>
+                                            <option *ngFor="let psf of psfArr" [value]="psf.ID_PSF">{{psf.nome}}</option>
                                         </select>
                                     </div>
                                 </div>

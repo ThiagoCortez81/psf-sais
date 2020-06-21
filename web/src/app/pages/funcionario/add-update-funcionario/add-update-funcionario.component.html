@@ -1,6 +1,6 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
     <!-- Mask -->
-    <span class="mask bg-gradient-danger opacity-8"></span>
+    <span class="mask bg-gradient-success opacity-8"></span>
     <!-- Header container -->
     <!-- <div class="container-fluid d-flex align-items-center">
       <div class="row">
@@ -24,6 +24,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <button *ngIf="!funcionarioObject.ID_func" (click)="addFuncionario()" class="btn btn-md btn-success float-left text-white">Incluir Funcionário</button>
+                            <button *ngIf="funcionarioObject.ID_func" (click)="resetarSenha()" class="btn btn-md btn-success float-left text-white">Resetar Senha</button>
                             <button *ngIf="funcionarioObject.ID_func" (click)="atualizarFuncionario()" class="btn btn-md btn-success float-left text-white">Atualizar Funcionário</button>
                         </div>
                     </div>
@@ -51,24 +52,15 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-cpf">CPF</label>
-                                        <input type="text" [(ngModel)]="funcionarioObject.cpf" name="cpf"
+                                        <input maxlength="11" type="text" [(ngModel)]="funcionarioObject.cpf" name="cpf"
                                             class="form-control form-control-alternative" placeholder="CPF">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">Ativo</label>
-                                        <select type="text" [(ngModel)]="funcionarioObject.ativo" name="ativo"
-                                            class="form-control form-control-alternative">
-                                            <option value="1" selected>Ativo</option>
-                                            <option value="0">Desativado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
+
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Sexo</label>
                                         <select type="text" [(ngModel)]="funcionarioObject.sexo" name="sexo"
@@ -78,7 +70,23 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="dataNascimento">Data de Nascimento</label>
+                                        <input max='2020-05-06' type="date" [(ngModel)]="funcionarioObject.dataNascimento" name="dataNascimento" id="dataNascimento" class="form-control form-control-alternative">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-psf">PSF</label>
+                                        <select type="text" [(ngModel)]="funcionarioObject.ID_PSF" name="ID_PSF" class="form-control form-control-alternative" multiple>
+                                            <option *ngFor="let psf of psfArr" [value]="psf.ID_PSF"> {{psf.nome}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Perfil</label>
                                         <select type="text" [(ngModel)]="funcionarioObject.ID_perfil" name="ID_perfil" class="form-control form-control-alternative">
@@ -86,10 +94,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="dataNascimento">Data de Nascimento</label>
-                                        <input max='2020-05-06' type="date" [(ngModel)]="funcionarioObject.dataNascimento" name="dataNascimento" id="dataNascimento" class="form-control form-control-alternative">
+                                        <label class="form-control-label" for="input-email">Ativo</label>
+                                        <select type="text" [(ngModel)]="funcionarioObject.ativo" name="ativo"
+                                            class="form-control form-control-alternative">
+                                            <option value="1" selected>Ativo</option>
+                                            <option value="0">Desativado</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -150,6 +162,7 @@
                             </div>
 
                         </div>
+                        
                     </form>
                 </div>
             </div>
