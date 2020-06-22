@@ -26,12 +26,14 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     ativo: 1,
     login: '',
     senha: '',
-    dataNascimento: ''
+    dataNascimento: '',
+    ID_PSF: []
   };
 
   perfilArr = [];
   estadosArr = [];
   municipiosArr = [];
+  psfArr = [];
   usuariosArr = [];
   msgValidacaoUsuario = '';
   ID_Funcionario = '';
@@ -43,12 +45,14 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     if (id != null && id != "") {
       this.buscaFuncionario(id);
       this.ID_Funcionario = id;
+      this.listFuncPSF(id);
     }
     this.buscaPerfil();
     this.buscaEstados();
     this.buscaMunicipios();
     this.validaUsuario();
     this.buscaUsuarios();
+    this.buscaPSF();
   }
 
   transformDate(date) {
@@ -74,6 +78,16 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     }
   }
 
+  async listFuncPSF (id: string) {
+    let listFuncPSF = await this.ws.listFuncPSF(id);
+    listFuncPSF = listFuncPSF.data.filter(element => {return element.ativo == 1});
+    
+    this.funcionarioObject.ID_PSF = [];
+    listFuncPSF.forEach(element => {
+      this.funcionarioObject.ID_PSF.push(element.ID_PSF);
+    });
+  }
+
   async buscaUsuarios() {
     const listFuncionario = await this.ws.listFuncionario();
     this.usuariosArr = listFuncionario.data;
@@ -81,6 +95,11 @@ export class AddUpdateFuncionarioComponent implements OnInit {
 
   async buscaPerfil() {
     this.perfilArr = await this.ws.listPerfil();
+  }
+
+  async buscaPSF() {
+    const listPSF = await this.ws.listPSF();
+    this.psfArr = listPSF.data.filter(element => {return element.ativo == 1});
   }
 
   async buscaEstados() {
@@ -120,7 +139,6 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     const funcionarioAddResponse = await this.ws.funcionarioAdd(this.funcionarioObject);
     if (funcionarioAddResponse != null) {
       if (funcionarioAddResponse['stats']) {
-        // this.toastr.success(funcionarioAddResponse['message'], "Sucesso!");
         swal.fire('Funcionário Incluído Com Sucesso!', `A senha do funcionário ${this.funcionarioObject.nome} é <strong>${password}</strong>`, 'success');
         this.router.navigate(['/funcionario']);
       } else {
@@ -131,8 +149,24 @@ export class AddUpdateFuncionarioComponent implements OnInit {
     }
   }
 
-  async atualizarFuncionario() {
+  async resetarSenha() {
+    const password = await this.generatePassword();
+    this.funcionarioObject.senha = password;
 
+    const funcionarioAddResponse = await this.ws.funcionarioResetPassword(this.funcionarioObject);
+    if (funcionarioAddResponse != null) {
+      if (funcionarioAddResponse['stats']) {
+        swal.fire('Senha Atualizada Com Sucesso!', `A nova senha do funcionário ${this.funcionarioObject.nome} é <strong>${password}</strong>`, 'success');
+        this.router.navigate(['/funcionario']);
+      } else {
+        this.toastr.error(funcionarioAddResponse['message'], "Ops!");
+      }
+    } else {
+      this.toastr.error("Tente novamente!", "Ops!");
+    }
+  }
+
+  async atualizarFuncionario() {
     const funcionarioAddResponse = await this.ws.funcionarioAtualizar(this.funcionarioObject);
 
     if (funcionarioAddResponse != null) {

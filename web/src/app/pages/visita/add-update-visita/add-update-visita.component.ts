@@ -17,7 +17,7 @@ export class AddUpdateVisitaComponent implements OnInit {
     dataAgendada: '',
     localizacao: '',
     tipo: '',
-    ID_funcionario: ''
+    ID_funcionario: []
   };
 
   funcionarioArr = [];
@@ -59,8 +59,11 @@ export class AddUpdateVisitaComponent implements OnInit {
   async listVisitaFunc (id: string) {
     let listFuncionario = await this.ws.listVisitaFunc(id);
     listFuncionario = listFuncionario.data.filter(element => {return element});
-
-    this.visitaObject.ID_funcionario = listFuncionario[0].ID_func;
+    
+    this.visitaObject.ID_funcionario = [];
+    listFuncionario.forEach(element => {
+      this.visitaObject.ID_funcionario.push(element.ID_func);
+    });
   }
 
   async buscaFuncionario () {

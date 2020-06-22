@@ -13,4 +13,5 @@ export class FuncionarioModel {
     ativo: number;
     login: string;
     senha: string;
+    ID_PSF: any;
 }

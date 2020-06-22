@@ -131,9 +131,9 @@ export class AgendaComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    // this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
-    console.log(event.id, 'clicou')
+    const id = event.id;
+
+    this.router.navigate(['agenda/view/', id]);
   }
 
   addEvent(): void {
@@ -240,7 +240,6 @@ export class AgendaComponent implements OnInit {
     const id = event.id;
 
     this.router.navigate(['visita/edit/', id]);
-    // swal.fire('Funcionário Incluído Com Sucesso!', `Deu certo o Editar!`, 'success');
   }
   
 }

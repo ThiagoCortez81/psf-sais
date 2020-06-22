@@ -1,6 +1,16 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
   <!-- Mask -->
-  <span class="mask bg-gradient-danger opacity-8"></span>
+  <span class="mask bg-gradient-success opacity-8"></span>
+  <!-- Header container -->
+  <!-- <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <a href="#!" class="btn btn-info">Consultar Funcionários</a>
+        <a href="#!" class="btn btn-info">Editar Funcionários</a>
+        <a href="#!" class="btn btn-info">Desativar Funcionários</a>
+      </div>
+    </div>
+  </div> -->
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
@@ -16,7 +26,7 @@
               <button *ngIf="!visitaObject.ID_visita" (click)="addVisita()"
                 class="btn btn-md btn-success float-left text-white">Incluir Visita</button>
               <button *ngIf="visitaObject.ID_visita" (click)="atualizarVisita()"
-                class="btn btn-md btn-success float-left text-white">Atualizar visita</button>
+                class="btn btn-md btn-success float-left text-white">Atualizar Visita</button>
             </div>
           </div>
         </div>
@@ -47,7 +57,7 @@
                   <div class="form-group">
                     <label class="form-control-label" for="input-nome-funcionario">Funcionários da Visita</label>
                     <select type="text" [(ngModel)]="visitaObject.ID_funcionario" name="nome-funcionario"
-                      class="form-control form-control-alternative">
+                      class="form-control form-control-alternative" multiple>
                       <option *ngFor=" let funcionario of funcionarioArr" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
                     </select>
                   </div>

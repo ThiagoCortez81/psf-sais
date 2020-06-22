@@ -39,7 +39,8 @@ export class MoradorComponent implements OnInit {
         paginate: {
           previous: "<",
           next: ">"
-        }
+        },
+        search: "Procurar:"
       },
       buttons: ['copy', 'excel', 'pdf', 'colvis'],
       columns: [

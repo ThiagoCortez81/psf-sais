@@ -17,6 +17,9 @@ export class PrimeiroAcessoComponent implements OnInit {
   constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
+    document.addEventListener('keypress', event => {
+      if (event.keyCode == 13) this.alterarSenha();
+  });
   }
 
   async alterarSenha() {

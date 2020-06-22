@@ -36,7 +36,8 @@ export class FuncionarioComponent implements OnInit {
         paginate: {
           previous: "<",
           next: ">"
-        }
+        },
+        search: "Procurar:"
       },
       buttons: ['copy', 'excel', 'pdf', 'colvis'],
       columns: [

@@ -11,5 +11,6 @@ export class VisitaModel {
     status: boolean;
     obs: string;
     ID_morador;
-    ID_funcionario: number;
+    ID_funcionario: any;
+    ID_visita;
 }

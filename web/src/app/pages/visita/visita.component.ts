@@ -39,7 +39,8 @@ export class VisitaComponent implements OnInit {
         paginate: {
           previous: '<',
           next: '>'
-        }
+        },
+        search: "Procurar:"
       },
       buttons: ['copy', 'excel', 'pdf'],
       columns: [

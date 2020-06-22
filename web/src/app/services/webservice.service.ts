@@ -16,7 +16,7 @@ export class WebserviceService {
       return await this.doGet('psf/list', idPSF);
     }
 
-    return await this.doGet('psf/list', idPSF);
+    return await this.doGet('psf/list');
   }
 
   public async psfAdd(psfEntity: any): Promise<boolean> {
@@ -98,12 +98,18 @@ export class WebserviceService {
     return await this.doPost('auth/alteraSenhaPrimeiroAcesso', dadosAcesso);
   }
 
+
+
   public async listFuncionario(id?: string) {
     if (id) {
       return await this.doGet('funcionario/list', id);
     }
 
     return await this.doGet('funcionario/list');
+  }
+
+  public async listFuncPSF(ID_func: string) {
+    return await this.doGet('funcionario/listPSF', ID_func);
   }
 
   public async listPerfil() {
@@ -135,6 +141,17 @@ export class WebserviceService {
       delete funcionarioEntity['ID_func'];
 
       return await this.doPut('funcionario/update', funcionarioEntity, id);
+    }
+
+    return false;
+  }
+
+  public async funcionarioResetPassword(funcionarioEntity: any): Promise<boolean> {
+    if (funcionarioEntity != null) {
+      const id = funcionarioEntity['ID_func'];
+      delete funcionarioEntity['ID_func'];
+
+      return await this.doPut('funcionario/updatePassword', funcionarioEntity, id);
     }
 
     return false;

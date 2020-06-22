@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
@@ -12,7 +12,7 @@
         <div class="col-md-4">
             <div class="btn-group">
                 <div
-                class="btn btn-primary"
+                class="btn btn-secondary"
                 mwlCalendarPreviousView
                 [view]="view"
                 [(viewDate)]="viewDate"
@@ -28,7 +28,7 @@
                 Hoje
                 </div>
                 <div
-                class="btn btn-primary"
+                class="btn btn-secondary"
                 mwlCalendarNextView
                 [view]="view"
                 [(viewDate)]="viewDate"
@@ -39,12 +39,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h3 class="text-white" style = "text-transform:capitalize;" >{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+            <h3 class="text-white" style = "text-transform:capitalize; font-size: 25px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
         </div>
 
     </div>
     <br />
-    <div [ngSwitch]="view">
+    <div [ngSwitch]="view" class="mt--1">
         <mwl-calendar-month-view
         *ngSwitchCase="CalendarView.Month"
         [viewDate]="viewDate"

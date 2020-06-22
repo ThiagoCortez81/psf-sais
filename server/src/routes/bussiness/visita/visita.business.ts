@@ -55,10 +55,13 @@ export async function addVisita(visitaModel: VisitaModel) {
                 INSERT INTO Visita_Func(ID_Visita, ID_Func) VALUES (?)
             `;
 
-            conn.query(query, [[ID_Visita, visitaModel.ID_funcionario]], function (err, results, fields) {
-                if (err) { console.log(err); return resolve(false); }
-            });  
-
+            // Para cada funcionário que vier no Array, insere em Visita_Func para o ID_visita que retorno no insert acima
+            visitaModel.ID_funcionario.forEach(element => {
+                conn.query(query, [[ID_Visita, element]], function (err, results, fields) {
+                    if (err) { console.log(err); return resolve(false); }
+                });
+            });
+  
             return resolve(true);
         });
 
@@ -74,31 +77,32 @@ export async function cancelaVisita(id: string, obs: string) {
         })
     })
 }
-/*
-export async function addVisita(visitaModel: VisitaModel) {
-    return new Promise(function (resolve, reject) {
-        let query: string =  `INSERT INTO Visita (dataAgendada, dataRealizada, localizacao, tipo, necessidadeInjetaveis, necessidadeEspecialista, necessidadeEnfermeiro, necessidadeCurativo, usaFarmaciaPopular, status, observacao, ID_morador) VALUES (${visitaModel.dataAgendada}, ${visitaModel.dataRealizada}, '${visitaModel.localizacao}', '${visitaModel.tipo}', ${visitaModel.necInjetaveis}, ${visitaModel.necEspecialista}, ${visitaModel.necEnfermeiro}, ${visitaModel.necCurativo}, ${visitaModel.usaFarmPopular}, '${visitaModel.status}', '${visitaModel.obs}', ${visitaModel.ID_morador})`;
-        conn.query(query, function (err, results, fields) {
-            if (err) { console.log(err); return resolve(false); }
-            return resolve(true);
-        });
-    });   
-}*/
 
 export async function updateVisita(id: string, visitaModel: VisitaModel) {
     return new Promise(function (resolve, reject) {
-        conn.query("UPDATE Visita SET dataAgendada = ?, dataRealizada = ?, localizacao = ?, tipo = ?, necInjetaveis = ?, necEspecialista = ?, necEnfermeiro = ?, necCurativo = ?, usaFarmPopular = ?, status = ?, obs = ? WHERE ID_VISITA = ?", [visitaModel.dataAgendada, visitaModel.dataRealizada, visitaModel.localizacao, visitaModel.tipo, visitaModel.necInjetaveis, visitaModel.necEspecialista, visitaModel.necEnfermeiro, visitaModel.necCurativo, visitaModel.usaFarmPopular, visitaModel.status, visitaModel.obs], function (err, results, fields) {
+        let query: string = `
+        UPDATE Visita
+        SET dataAgendada = ?, tipo = ?, ID_morador = ?
+        WHERE ID_visita = ?;
+
+        DELETE FROM Visita_Func WHERE ID_visita = ?
+        `
+        conn.query(query, [visitaModel.dataAgendada, visitaModel.tipo, visitaModel.ID_morador, visitaModel.ID_visita, visitaModel.ID_visita], function (err, results, fields) {
             if (err) { console.log(err); return resolve(false); }
+
+            query = `
+            INSERT INTO Visita_Func(ID_Visita, ID_Func) VALUES (?)
+            `;
+
+            // Para cada funcionário que vier no Array, insere em Visita_Func para o ID_visita que retorno no insert acima
+            visitaModel.ID_funcionario.forEach(element => {
+                conn.query(query, [[visitaModel.ID_visita, element]], function (err, results, fields) {
+                    if (err) { console.log(err); return resolve(false); }
+                });
+            });
+            
             return resolve(true);
         });
     });
 }
 
-export async function deleteVisita(id: string) {
-    return new Promise(function (resolve, reject) {
-        conn.query("UPDATE Visita SET ativo = ? WHERE ID_PSF = ?", [0, id], function (err, results, fields) {
-            if (err) { console.log(err); return resolve(false); }
-            return resolve(true);
-        });
-    });
-}

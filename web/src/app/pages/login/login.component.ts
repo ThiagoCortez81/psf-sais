@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    document.addEventListener('keypress', event => {
+        if (event.keyCode == 13) this.fazLogin();
+    });
   }
 
   async fazLogin() {
