@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, ElementRef, OnInit } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { WebserviceService } from 'src/app/services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,14 +13,20 @@ const colors: any = {
   green: {
     primary: '#00e600',
     secondary: '#FAE3E3',
+    status: 'Realizada',
+    badge: 'badge badge-success',
   },
   red: {
     primary: '#ff132b',
     secondary: '#D1E8FF',
+    status: 'Cancelada',
+    badge: 'badge badge-danger',
   },
   yellow: {
     primary: '#f8de00',
     secondary: '#FDF1BA',
+    status: 'Agendada',
+    badge: 'badge badge-primary',
   },
 };
 
@@ -33,64 +39,16 @@ const colors: any = {
 })
 export class AgendaComponent implements OnInit {
 
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   locale: string = 'pt';
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt text-blue"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.editar(event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt text-danger"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.desativar(event);
-      },
-    },
-  ];
-
   refresh: Subject<any> = new Subject();
-
-  // events: CalendarEvent[] = [
-  //   {
-  //     start: addDays(startOfDay(new Date()), 2),
-  //     title: 'João da Silva',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'Melise Paula',
-  //     color: colors.green,
-  //     actions: this.actions,
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'Rafael Frinhani',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //   },
-  // ];
-
+  modalOption: NgbModalOptions = {};
   events: CalendarEvent[] = [];
-
-  activeDayIsOpen: boolean = true;
+  eventsArr = [];
+  dataAtual: string = '';
+  activeDayIsOpen: boolean = false;
 
   constructor(private modal: NgbModal, private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef) {}
 
@@ -98,64 +56,24 @@ export class AgendaComponent implements OnInit {
     this.listaVisitas();
   }
 
+  transformDate(date) {
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
+  }
+
+  // Evento ao clicar em um dia da agenda, abre o modal
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
+    this.eventsArr = events;
+    this.dataAtual = this.transformDate(date);
+
+    document.getElementById('openModal').click();
   }
 
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    const id = event.id;
-
-    this.router.navigate(['agenda/view/', id]);
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.green,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    console.log(eventToDelete);
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  // Ao abrir o modal, carrega as visitas do dia
+  open(content) {
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.ariaLabelledBy = 'modal-visitas';
+    this.modal.open(content, this.modalOption).result.then((result) => {});
   }
 
   setView(view: CalendarView) {
@@ -166,11 +84,13 @@ export class AgendaComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
+  // Carrega todas as visitas agendadas quando carrega a página
   async listaVisitas() {
     const visitas = await this.ws.listVisita();
    
     let events: Array<CalendarEvent> = [];
     let color: any;
+    let corStatus: string;
 
    visitas.data.forEach(visita => {
 
@@ -184,7 +104,7 @@ export class AgendaComponent implements OnInit {
         start: new Date(visita.dataAgendada),
         title: visita.nome,
         color:  color,
-        actions: this.actions,
+        // actions: this.actions,
         id: visita.ID_visita
       });
 
@@ -194,7 +114,8 @@ export class AgendaComponent implements OnInit {
     this.refresh.next();
   }
 
-  public async desativar(event: CalendarEvent) {
+  // Ao clicar na ação de desativar a visita
+  public async desativar(id: number) {
 
     swal.fire({
       title: 'Você tem certeza?',
@@ -219,7 +140,7 @@ export class AgendaComponent implements OnInit {
           cancelButtonText: 'Cancelar'
         }).then((result) => {
           if (result.value) {
-            this.cancelaVisita(event.id, result.value.toString());
+            this.cancelaVisita(id, result.value.toString());
           }
         })
       }
@@ -234,12 +155,17 @@ export class AgendaComponent implements OnInit {
     } else {
       swal.fire('Erro!', `A visita não foi cancelada! Tente novamente.`, 'error');
     }
+    document.getElementById('closeModal').click();
   }
 
-  async editar(event: CalendarEvent) {
-    const id = event.id;
-
+  async editar(id: number) {
+    document.getElementById('closeModal').click();
     this.router.navigate(['visita/edit/', id]);
+  }
+
+  visualizar(id: number) {
+    document.getElementById('closeModal').click();
+    this.router.navigate(['agenda/view/', id]);
   }
   
 }

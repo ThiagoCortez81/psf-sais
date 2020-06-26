@@ -15,4 +15,30 @@ pre {
   z-index: 10;
   color: #f5f5f5;
   text-transform:capitalize;
+  cursor: context-menu;
+}
+
+:host ::ng-deep  .cal-month-view .cal-cell-row .cal-cell:hover, .cal-month-view .cal-cell.cal-has-events.cal-open {
+  background-color: transparent;
+}
+
+:host ::ng-deep  .cal-month-view .cal-day-cell.cal-today {
+  background: linear-gradient(87deg, #91f9cc 0, #58cecc 100%) !important;
+}
+
+:host ::ng-deep  .cal-month-view  {
+  cursor: pointer;
+}
+
+:host ::ng-deep .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  color: #ffffff;
+  opacity: 1;
+}
+
+:host ::ng-deep .cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+  color: #000;
+}
+
+:host ::ng-deep .cal-day-badge {
+  background-color: #6bc784;
 }

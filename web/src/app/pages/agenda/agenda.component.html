@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h3 class="text-white" style = "text-transform:capitalize; font-size: 25px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+            <h3 class="text-white" style = "cursor: context-menu; text-transform:capitalize; font-size: 25px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
         </div>
 
     </div>
@@ -76,5 +76,42 @@
         >
         </mwl-calendar-day-view>
     </div>
+
+
+    <!-- Modal Visita -->
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-visitas" >Visitas Agendadas - {{ dataAtual }}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Nome do Morador</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Cancelar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let evento of eventsArr">
+                    <td (click)="visualizar(evento.id)" style="cursor: pointer;"><label [class]="evento.color.badge">{{evento.color.status}}</label></td>
+                    <td (click)="visualizar(evento.id)" style="cursor: pointer;">{{evento.title}}</td>
+                    <td (click)="editar(evento.id)" style="text-align: center;"><i class="fas fa-fw fa-pencil-alt text-blue" style="cursor: pointer;"></i></td> 
+                    <td (click)="desativar(evento.id)" style="text-align: center;"><i class="fas fa-fw fa-trash-alt text-danger" style="cursor: pointer;"></i></td>
+                </tbody>
+            </table>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="closeModal" type="button" class="btn btn-outline-secondary" (click)="modal.close()">Fechar</button>
+        </div>
+      </ng-template>
+
+      <button id="openModal" (click)="open(content)" [hidden]="true"></button>
+
 </div>  
  

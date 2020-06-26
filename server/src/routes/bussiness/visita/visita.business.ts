@@ -91,7 +91,7 @@ export async function updateVisita(id: string, visitaModel: VisitaModel) {
             if (err) { console.log(err); return resolve(false); }
 
             query = `
-            INSERT INTO Visita_Func(ID_Visita, ID_Func) VALUES (?)
+            INSERT INTO Visita_Func(ID_Visita, ID_Func) VALUES (?) 
             `;
 
             // Para cada funcionário que vier no Array, insere em Visita_Func para o ID_visita que retorno no insert acima
