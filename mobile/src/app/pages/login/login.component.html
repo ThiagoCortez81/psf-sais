@@ -1,0 +1,49 @@
+<ion-content>
+
+    <ion-grid class="grid1">
+
+        <ion-row class="row1">
+            <ion-col>
+                <ion-col class="img-container">
+                    <img src="../../../assets/img/psf-logo.png">
+                  </ion-col>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+    <ion-slide>
+        <div class="contaier-login">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <h1>Bem-vindo!</h1>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-list>
+                            <ion-item>
+                                <ion-icon name="person-outline"></ion-icon>
+                                <ion-input type="text" [(ngModel)]="userData.login" name="login" required placeholder="Usuario"></ion-input>
+                            </ion-item>
+                            <br />
+                            <ion-item>
+                                <ion-icon name="lock-closed-outline"></ion-icon>
+                                <ion-input type="password" [(ngModel)]="userData.senha" name="senha" required placeholder="Senha">
+                                </ion-input>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button type="submit" fill="solid" expand="full" (click)="fazLogin()">
+                            Login
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-slide>
+</ion-content>

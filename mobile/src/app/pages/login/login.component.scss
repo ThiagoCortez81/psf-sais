@@ -1,0 +1,46 @@
+.grid1 {
+    height: 100%;
+    padding: 0px;
+}
+
+.contaier-login {
+    width: 90%;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.row1 {
+    height: 50%;
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;
+}
+
+.row2 {
+    height: 50%;
+}
+
+ion-icon {
+    margin-right: 15px;
+}
+
+ion-button {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+ion-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute !important;
+    top: 0px !important;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; // this only if you want to vertical align it to the center too
+}
+
+.img-container img {
+    height: 20vh;
+}
