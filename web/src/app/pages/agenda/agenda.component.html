@@ -93,13 +93,15 @@
                     <tr>
                         <th scope="col">Status</th>
                         <th scope="col">Nome do Morador</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Cancelar</th>
+                        <th scope="col" style="text-align: center;">Visualizar</th>
+                        <th scope="col" style="text-align: center;">Editar</th>
+                        <th scope="col" style="text-align: center;">Cancelar</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let evento of eventsArr">
                     <td (click)="visualizar(evento.id)" style="cursor: pointer;"><label [class]="evento.color.badge">{{evento.color.status}}</label></td>
                     <td (click)="visualizar(evento.id)" style="cursor: pointer;">{{evento.title}}</td>
+                    <td (click)="visualizar(evento.id)" style="text-align: center;"><i class="fas fa-fw fa-paperclip text-blue" style="cursor: pointer;"></i></td> 
                     <td (click)="editar(evento.id)" style="text-align: center;"><i class="fas fa-fw fa-pencil-alt text-blue" style="cursor: pointer;"></i></td> 
                     <td (click)="desativar(evento.id)" style="text-align: center;"><i class="fas fa-fw fa-trash-alt text-danger" style="cursor: pointer;"></i></td>
                 </tbody>
