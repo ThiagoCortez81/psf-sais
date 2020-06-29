@@ -19,6 +19,8 @@ export class AgendaViewComponent implements OnInit {
     tipo: '',
     ID_funcionario: [],
     ID_morador: '',
+    CorStatus: '',
+    status
   };
 
   moradorObject = {
@@ -54,8 +56,18 @@ export class AgendaViewComponent implements OnInit {
       let visitaObject = await this.ws.listVisita(id);
       visitaObject = visitaObject.data.filter((element)=> {return element});
       visitaObject[0].dataAgendada = this.transformDate(visitaObject[0].dataAgendada);
+      visitaObject[0].dataRealizada = this.transformDate(visitaObject[0].dataRealizada);
 
       Object.assign(this.visitaObject, visitaObject[0]);
+      
+      switch (this.visitaObject.status) {
+          case 'Agendada': this.visitaObject.CorStatus = 'text-primary'; break;
+          case 'Realizada': this.visitaObject.CorStatus = 'text-success'; break;
+          case 'Cancelada': this.visitaObject.CorStatus = 'text-danger'; break;
+      }
+
+      // let observacao = document.getElementById('observacao');
+      // observacao.style.height = (observacao.scrollHeight > observacao.clientHeight) ? (observacao.scrollHeight)+"px" : "60px";
       resolve(this.visitaObject);
     });
 
@@ -90,10 +102,11 @@ export class AgendaViewComponent implements OnInit {
 
   async buscaFuncionarios () {
     let listFuncionario = await this.ws.listFuncionario();
-    console.log(this.visitaObject.ID_funcionario);
     this.funcionarioArr = listFuncionario.data.filter(element => {
       return element.ativo == 1 && this.visitaObject.ID_funcionario.includes(element.ID_func);
     })
   }
+
+
 
 }
