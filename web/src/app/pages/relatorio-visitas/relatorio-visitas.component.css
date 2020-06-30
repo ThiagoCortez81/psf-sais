@@ -1,0 +1,16 @@
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #2dce89 !important;
+    border-color: #2dce89 !important;
+}
+
+input {
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+select {
+    border: none;
+}
