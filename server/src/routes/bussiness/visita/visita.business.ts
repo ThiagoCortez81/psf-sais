@@ -77,8 +77,6 @@ export async function listVisitaFunc(idVisita: string) {
     });
 }
 
-<<<<<<< HEAD
-
 export async function listVisitaMorador(idMorador: string) {
     return new Promise(function (resolve, reject) {
         let query = `
@@ -94,6 +92,7 @@ export async function listVisitaMorador(idMorador: string) {
         });
     });
 }
+
 export async function listVisitaFuncionario(idMorador: string) {
     return new Promise(function (resolve, reject) {
         let query = `
@@ -105,7 +104,12 @@ export async function listVisitaFuncionario(idMorador: string) {
         WHERE Visita_Func.ID_func =  ?
                 `;
         conn.query(query, [idMorador], function (err, results, fields) {
-=======
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+
 export async function listVisitaFuncMorador(idFuncionario: string) {
     return new Promise(function (resolve, reject) {
         let query = `
@@ -115,7 +119,6 @@ export async function listVisitaFuncMorador(idFuncionario: string) {
         WHERE vf.ID_func = ? AND DATE_FORMAT(CONVERT_TZ(NOW(), @@session.time_zone, '-03:00'),'%y-%m-%d') = DATE_FORMAT(v.dataAgendada,'%y-%m-%d') AND v.status = 'AGENDADA'
         `;
         conn.query(query, [idFuncionario], function (err, results, fields) {
->>>>>>> cf2898f3359e4811c293d884fa7b77b2c015b1ff
             if (err) { console.log(err); return resolve([]); }
             return resolve(results);
         });

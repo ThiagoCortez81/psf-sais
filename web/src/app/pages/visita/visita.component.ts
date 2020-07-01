@@ -4,8 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import swal from 'sweetalert2';
-
-import { AddUpdateVisitaComponent } from './add-update-visita/add-update-visita.component';
+import { TokenStorageService } from '../../services/tokenStorage/token-storage.service';
 
 @Component({
   selector: 'app-visita',
@@ -18,16 +17,21 @@ export class VisitaComponent implements OnInit {
   @ViewChild('dataTable', { static: true }) table: ElementRef;
   dataTable: any;
   listVisita: [];
+  User = {
+    ID_func: ''
+  };
 
-  constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router, private datePipe: DatePipe) { }
+
+  constructor(private ws: WebserviceService, private elementRef: ElementRef, private toastr: ToastrService, private router: Router, private datePipe: DatePipe, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit() {
+    this.User = this.tokenStorageService.getUser();
     this.dataTable = $(this.table.nativeElement);
     this.dataTable.dataTable({
       destroy: true,
       processing: true,
       ajax: {
-        url: 'http://localhost:5000/api/visita/list',
+        url: `http://localhost:5000/api/visita/listPerfil/${this.User.ID_func}`,
         type: 'GET'
       },
       language: {
