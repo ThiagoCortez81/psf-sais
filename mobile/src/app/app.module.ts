@@ -14,9 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PrimeiroAcessoComponent } from './pages/primeiro-acesso/primeiro-acesso.component';
 import { AgendaComponent } from './pages/agenda/agenda.component';
+import { RealizarVisitaComponent } from './pages/realizar-visita/realizar-visita.component';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PrimeiroAcessoComponent, AgendaComponent],
+  declarations: [AppComponent, LoginComponent, PrimeiroAcessoComponent, AgendaComponent, RealizarVisitaComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { AgendaComponent } from './pages/agenda/agenda.component';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

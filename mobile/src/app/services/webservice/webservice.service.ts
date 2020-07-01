@@ -6,7 +6,8 @@ import { TokenStorageService } from '../tokenStorage/token-storage.service';
   providedIn: 'root'
 })
 export class WebserviceService {
-  URL_SERVER: string = 'http://192.168.0.152:5000/api/';
+  URL_SERVER: string = 'http://192.168.0.115:5000/api/';
+  // URL_SERVER: string = 'http://192.168.0.152:5000/api/';
 
   constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
 
@@ -61,6 +62,12 @@ export class WebserviceService {
     return await this.doGet('visita/listFunc', idVisita);
   }
 
+  public async listFuncMorador() {
+    console.log()
+    const idFunc = "0";
+    return await this.doGet('visita/listFuncMorador');
+  }
+
   public async visitaAdd(visitaEntity: any): Promise<boolean> {
     if (visitaEntity != null) {
       return await this.doPost('visita/add', visitaEntity);
@@ -69,11 +76,20 @@ export class WebserviceService {
 
   public async visitaAtualizar(visitaEntity: any): Promise<boolean> {
     if (visitaEntity != null) {
-      const id = visitaEntity['ID_Visita'];
-      delete visitaEntity['ID_Visita'];
+      const id = visitaEntity['ID_visita'];
+      delete visitaEntity['ID_visita'];
       return await this.doPut('visita/update', visitaEntity, id);
     }
   }
+  
+  public async finalizaVisita(visitaEntity: any): Promise<boolean> {
+    if (visitaEntity != null) {
+      const id = visitaEntity['ID_visita'];
+      delete visitaEntity['ID_visita'];
+      return await this.doPut('visita/finaliza', visitaEntity, id);
+    }
+  }
+
   public async visitaDelete(psfEntity: any): Promise<boolean> {
     if (psfEntity != null) {
       return await this.doDelete('visita/delete', psfEntity);
@@ -217,7 +233,7 @@ export class WebserviceService {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     if (id)
       return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
-    return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
+    return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
   }
 
   private async doGetWithURL(URL_SERVER: string, id?: string) {

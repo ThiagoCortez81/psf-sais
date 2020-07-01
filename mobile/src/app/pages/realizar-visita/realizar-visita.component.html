@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Realizar Visita #{{id}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Agenda</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <form>
+      <ion-list-header>
+        <h3>
+          Visita
+          <ion-badge class="badge-adjustment" color="secondary" *ngIf="visita.tipo == 'Periódica'">
+            Periódica</ion-badge>
+          <ion-badge class="badge-adjustment" color="warning" *ngIf="visita.tipo == 'Emergencial'">Emergencial
+          </ion-badge>
+        </h3>
+      </ion-list-header>
+
+      <ion-item lines="none">
+        <ion-icon name="person-circle-sharp" slot="start"></ion-icon>
+        {{visita.nome}}
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="home-sharp" slot="start"></ion-icon>
+        {{visita.endereco}}
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="call-sharp" slot="start"></ion-icon>
+        {{visita.telefone}}
+      </ion-item>
+
+      <ion-list-header>
+        <h3>
+          Análise
+        </h3>
+      </ion-list-header>
+      <ion-list>
+        <ion-item>
+          <ion-label>Próxima consulta com especialista</ion-label>
+          <ion-checkbox color="dark" slot="start" [(ngModel)]="visita.necEspecialista" name="necEspecialista"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Usa remédios da farmácia popular</ion-label>
+          <ion-checkbox color="dark" slot="start" [(ngModel)]="visita.usaFarmPopular" name="usaFarmPopular"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Necessidade de enfermeiro</ion-label>
+          <ion-checkbox color="dark" slot="start" [(ngModel)]="visita.necEnfermeiro" name="necEnfermeiro"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Necessidade de curativos</ion-label>
+          <ion-checkbox color="dark" slot="start" [(ngModel)]="visita.necCurativo" name="necCurativo"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Necessidade de injetáveis</ion-label>
+          <ion-checkbox color="dark" slot="start" [(ngModel)]="visita.necInjetaveis" name="necInjetaveis"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      <ion-item>
+        <ion-label position="floating">Observações</ion-label>
+        <ion-textarea [(ngModel)]="visita.obs" name="obs"></ion-textarea>
+      </ion-item>
+
+        <ion-button size="medium" expand="block" color="success" (click)="efetuarVisita()"><b>Efetuar Visita</b></ion-button>
+        <p class="text-center">ou</p>
+        <ion-button size="medium" expand="block" color="light" (click)="moradorAusente()"><b>Morador Ausente</b></ion-button>
+    </form>
+  </div>
+</ion-content>

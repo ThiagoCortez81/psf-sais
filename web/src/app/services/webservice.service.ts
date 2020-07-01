@@ -217,7 +217,7 @@ export class WebserviceService {
     // TODO: ADD HEADER DE AUTENTICAÇÃO
     if (id)
       return await this.http.get<any>(`${this.URL_SERVER}${endpoint}/${id}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
-    return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`).toPromise();
+    return await this.http.get<any>(`${this.URL_SERVER}${endpoint}`, {headers: {'x-authentication-token': await this.tokenStorageService.getToken()}}).toPromise();
   }
 
   private async doGetWithURL(URL_SERVER: string, id?: string) {

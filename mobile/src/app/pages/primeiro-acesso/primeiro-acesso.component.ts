@@ -19,10 +19,11 @@ export class PrimeiroAcessoComponent implements OnInit {
   ngOnInit(): void {  }
 
   async alterarSenha() {
+    let toast;
     const alteraSenhaResp = await this.ws.alteraSenhaPrimeiroAcesso(this.userData);
 
     if (alteraSenhaResp['stats']) {
-      this.toastr.create({
+      toast = await this.toastr.create({
         message: alteraSenhaResp['message'],
         duration: 2000
       });
@@ -32,11 +33,13 @@ export class PrimeiroAcessoComponent implements OnInit {
       
       this.router.navigate(['/agenda']);
     } else {
-      this.toastr.create({
+      toast = await this.toastr.create({
         message: alteraSenhaResp['message'],
         duration: 2000
       });
     }
+
+    toast.present();
   }
 
 }

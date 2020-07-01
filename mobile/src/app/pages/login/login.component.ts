@@ -24,27 +24,29 @@ export class LoginComponent implements OnInit {
   }
 
   async fazLogin() {
+    let toast;
     this.loading = true;
 
     const loginResp = await this.ws.fazLogin(this.userData);
     if (loginResp['stats']) {
-      this.toastr.create({
+      toast = await this.toastr.create({
         message: loginResp['message'],
         duration: 2000
       });
       this.tokenStorage.saveToken(loginResp['token']);
       this.tokenStorage.saveUser(loginResp['dadosUsuario']);
       if (loginResp['dadosUsuario']['primeiroAcesso'] == 1) {
-        this.router.navigate(['/primeiro-acesso']);
+        await this.router.navigate(['/primeiro-acesso']);
       } else {
-        this.router.navigate(['/agenda']);
+        await this.router.navigate(['/agenda']);
       }
     } else {
-      this.toastr.create({
+      toast = await this.toastr.create({
         message: loginResp['message'],
         duration: 2000
       });
     }
+    toast.present();
 
     this.loading = false;
   }

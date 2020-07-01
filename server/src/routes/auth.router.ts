@@ -14,6 +14,7 @@ router.post('/login', login);
 router.post('/alteraSenhaPrimeiroAcesso', PSFSaisServerConfiguration.authenticationMiddleware, alteraSenhaPrimeiroAcesso);
 
 async function login(req: Request, res: Response) {
+    console.log('/login');
     const loginResponse = new LoginResponse();
     const reqBody: LoginReq = req.body;
 
