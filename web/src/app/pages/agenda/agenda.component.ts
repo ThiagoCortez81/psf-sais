@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import swal from 'sweetalert2';
+import { TokenStorageService } from '../../services/tokenStorage/token-storage.service';
+
 
 const colors: any = {
   green: {
@@ -50,10 +52,16 @@ export class AgendaComponent implements OnInit {
   dataAtual: string = '';
   activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal, private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef) {}
+  User = {
+    ID_func: ''
+  };
+
+  constructor(private modal: NgbModal, private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
     this.listaVisitas();
+
+    
   }
 
   transformDate(date) {
@@ -87,7 +95,9 @@ export class AgendaComponent implements OnInit {
 
   // Carrega todas as visitas agendadas quando carrega a página
   async listaVisitas() {
-    const visitas = await this.ws.listVisita();
+    this.User = this.tokenStorageService.getUser();
+
+    const visitas = await this.ws.listVisitaPerfil(this.User.ID_func);
    
     let events: Array<CalendarEvent> = [];
     let color: any;

@@ -25,6 +25,42 @@ export async function listVisita(idVisita?: string) {
     });
 }
 
+export async function listVisitaPerfil(idFunc: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+            SELECT ID_perfil FROM Funcionario WHERE ID_func = ?
+        `;
+
+        conn.query(query, [idFunc], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            const ID_perfil = results[0].ID_perfil;
+
+            query = `
+            SELECT Visita.*, Morador.nome, Morador.telefone, Morador.logradouro, Morador.numero, Morador.bairro, Morador.cidade, Morador.cep, Morador.estado
+            FROM Visita
+            INNER JOIN Morador 
+            ON Visita.ID_morador = Morador.ID_morador
+            `;
+
+            if (ID_perfil == 2 || ID_perfil == 3 || ID_perfil == 5) {
+                query += `
+                INNER JOIN Visita_Func VF ON VF.ID_visita = Visita.ID_visita
+                WHERE VF.ID_func = ?`;
+                conn.query(query, [idFunc], function (err, results, fields) {
+                    if (err) { console.log(err); return resolve([]); }
+                    return resolve(results);
+                });
+            } else {
+                conn.query(query, function (err, results, fields) {
+                    if (err) { console.log(err); return resolve([]); }
+                    return resolve(results);
+                });
+            }
+
+        });
+    });
+}
+
 export async function listVisitaFunc(idVisita: string) {
     return new Promise(function (resolve, reject) {
         let query = `

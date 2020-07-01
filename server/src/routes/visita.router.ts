@@ -6,10 +6,11 @@ import { VisitaModel, LoginResponse } from "../models";
 
 const router: Router = Router();
 
-router.get('/list', PSFSaisServerConfiguration.authenticationMiddleware, listVisita);
-router.get('/list/:id', PSFSaisServerConfiguration.authenticationMiddleware, listVisita);
-router.get('/listFunc/:id', PSFSaisServerConfiguration.authenticationMiddleware, listVisitaFunc);
-router.get('/listFuncMorador', PSFSaisServerConfiguration.authenticationMiddleware, listVisitaFuncMorador);
+router.get('/list', listVisita);
+router.get('/list/:id', listVisita);
+router.get('/listPerfil/:id', listVisitaPerfil);
+router.get('/listFunc/:id',  listVisitaFunc);
+router.get('/listFuncMorador',  listVisitaFuncMorador);
 router.post('/add', addVisita);
 router.put('/update/:id', updateVisita);
 router.put('/finaliza/:id', finalizaVisita);
@@ -18,10 +19,14 @@ router.put('/cancela/:id', cancelaVisita);
 
 async function listVisita(req: Request, res: Response) {
     const id = (req.params.id);
-    const idFunc = req['user']['ID_func'];
 
-    console.log(idFunc);
     res.send({data: await Bussiness.listVisita(id)});
+}
+
+async function listVisitaPerfil(req: Request, res: Response) {
+    const ID_func = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaPerfil(ID_func)});
 }
 
 async function listVisitaFunc(req: Request, res: Response) {
