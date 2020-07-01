@@ -73,6 +73,7 @@ export class AgendaComponent implements OnInit {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modalOption.ariaLabelledBy = 'modal-visitas';
+    this.modalOption.size = 'lg';
     this.modal.open(content, this.modalOption).result.then((result) => {});
   }
 
