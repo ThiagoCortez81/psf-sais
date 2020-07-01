@@ -16,7 +16,7 @@ export async function listVisita(idVisita?: string) {
                 return resolve(results);
             });
         }
-        else { 
+        else {
             conn.query(query, function (err, results, fields) {
                 if (err) { console.log(err); return resolve([]); }
                 return resolve(results);
@@ -77,6 +77,35 @@ export async function listVisitaFunc(idVisita: string) {
     });
 }
 
+<<<<<<< HEAD
+
+export async function listVisitaMorador(idMorador: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT Visita.*, Morador.nome, Morador.telefone, Morador.logradouro, Morador.numero, Morador.bairro, Morador.cidade, Morador.cep, Morador.estado
+        FROM Visita
+        INNER JOIN Morador 
+        ON Visita.ID_morador = Morador.ID_morador
+        WHERE Visita.ID_morador = ?
+        `;
+        conn.query(query, [idMorador], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+export async function listVisitaFuncionario(idMorador: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT V.*, Morador.nome, Morador.telefone, Morador.logradouro, Morador.numero, Morador.bairro, Morador.cidade, Morador.cep, Morador.estado
+        FROM Visita_Func 
+        INNER JOIN Visita V ON Visita_Func.ID_visita = V.ID_visita
+        INNER JOIN Funcionario F ON Visita_Func.ID_func = F.ID_func
+        INNER JOIN Morador  on Morador.ID_morador = V.Id_morador 
+        WHERE Visita_Func.ID_func =  ?
+                `;
+        conn.query(query, [idMorador], function (err, results, fields) {
+=======
 export async function listVisitaFuncMorador(idFuncionario: string) {
     return new Promise(function (resolve, reject) {
         let query = `
@@ -86,6 +115,7 @@ export async function listVisitaFuncMorador(idFuncionario: string) {
         WHERE vf.ID_func = ? AND DATE_FORMAT(CONVERT_TZ(NOW(), @@session.time_zone, '-03:00'),'%y-%m-%d') = DATE_FORMAT(v.dataAgendada,'%y-%m-%d') AND v.status = 'AGENDADA'
         `;
         conn.query(query, [idFuncionario], function (err, results, fields) {
+>>>>>>> cf2898f3359e4811c293d884fa7b77b2c015b1ff
             if (err) { console.log(err); return resolve([]); }
             return resolve(results);
         });
@@ -112,7 +142,7 @@ export async function addVisita(visitaModel: VisitaModel) {
                     if (err) { console.log(err); return resolve(false); }
                 });
             });
-  
+
             return resolve(true);
         });
 
@@ -151,7 +181,7 @@ export async function updateVisita(id: string, visitaModel: VisitaModel) {
                     if (err) { console.log(err); return resolve(false); }
                 });
             });
-            
+
             return resolve(true);
         });
     });

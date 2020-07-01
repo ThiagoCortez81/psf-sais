@@ -11,10 +11,13 @@ router.get('/list/:id', listVisita);
 router.get('/listPerfil/:id', listVisitaPerfil);
 router.get('/listFunc/:id',  listVisitaFunc);
 router.get('/listFuncMorador',  listVisitaFuncMorador);
+router.get('/morador/:id', listVisitaMorador);
+router.get('/funcionario/:id', listVisitaFuncionario);
 router.post('/add', addVisita);
 router.put('/update/:id', updateVisita);
 router.put('/finaliza/:id', finalizaVisita);
 router.put('/cancela/:id', cancelaVisita);
+
 //router.delete('/delete/:id', deletePSF);
 
 async function listVisita(req: Request, res: Response) {
@@ -34,6 +37,17 @@ async function listVisitaFunc(req: Request, res: Response) {
 
     res.send({data: await Bussiness.listVisitaFunc(id)});
 }
+async function listVisitaMorador(req: Request, res: Response) {
+    const id = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaMorador(id)});
+}
+async function listVisitaFuncionario(req: Request, res: Response) {
+    const id = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaFuncionario(id)});
+}
+
 
 async function listVisitaFuncMorador(req: Request, res: Response) {
     const id = req['user']['ID_func'];
