@@ -16,7 +16,7 @@ export async function listVisita(idVisita?: string) {
                 return resolve(results);
             });
         }
-        else { 
+        else {
             conn.query(query, function (err, results, fields) {
                 if (err) { console.log(err); return resolve([]); }
                 return resolve(results);
@@ -35,6 +35,39 @@ export async function listVisitaFunc(idVisita: string) {
         WHERE ID_visita = ?
         `;
         conn.query(query, [idVisita], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+
+
+export async function listVisitaMorador(idMorador: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT Visita.*, Morador.nome, Morador.telefone, Morador.logradouro, Morador.numero, Morador.bairro, Morador.cidade, Morador.cep, Morador.estado
+        FROM Visita
+        INNER JOIN Morador 
+        ON Visita.ID_morador = Morador.ID_morador
+        WHERE Visita.ID_morador = ?
+        `;
+        conn.query(query, [idMorador], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+export async function listVisitaFuncionario(idMorador: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT V.*, Morador.nome, Morador.telefone, Morador.logradouro, Morador.numero, Morador.bairro, Morador.cidade, Morador.cep, Morador.estado
+        FROM Visita_Func 
+        INNER JOIN Visita V ON Visita_Func.ID_visita = V.ID_visita
+        INNER JOIN Funcionario F ON Visita_Func.ID_func = F.ID_func
+        INNER JOIN Morador  on Morador.ID_morador = V.Id_morador 
+        WHERE Visita_Func.ID_func =  ?
+                `;
+        conn.query(query, [idMorador], function (err, results, fields) {
             if (err) { console.log(err); return resolve([]); }
             return resolve(results);
         });
@@ -61,7 +94,7 @@ export async function addVisita(visitaModel: VisitaModel) {
                     if (err) { console.log(err); return resolve(false); }
                 });
             });
-  
+
             return resolve(true);
         });
 
@@ -100,7 +133,7 @@ export async function updateVisita(id: string, visitaModel: VisitaModel) {
                     if (err) { console.log(err); return resolve(false); }
                 });
             });
-            
+
             return resolve(true);
         });
     });

@@ -9,9 +9,12 @@ const router: Router = Router();
 router.get('/list', listVisita);
 router.get('/list/:id', listVisita);
 router.get('/listFunc/:id', listVisitaFunc);
+router.get('/morador/:id', listVisitaMorador);
+router.get('/funcionario/:id', listVisitaFuncionario);
 router.post('/add', addVisita);
 router.put('/update/:id', updateVisita);
 router.put('/cancela/:id', cancelaVisita);
+
 //router.delete('/delete/:id', deletePSF);
 
 async function listVisita(req: Request, res: Response) {
@@ -25,6 +28,17 @@ async function listVisitaFunc(req: Request, res: Response) {
 
     res.send({data: await Bussiness.listVisitaFunc(id)});
 }
+async function listVisitaMorador(req: Request, res: Response) {
+    const id = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaMorador(id)});
+}
+async function listVisitaFuncionario(req: Request, res: Response) {
+    const id = (req.params.id);
+
+    res.send({data: await Bussiness.listVisitaFuncionario(id)});
+}
+
 
 async function addVisita(req: Request, res: Response) {
     const vst: VisitaModel = req.body;
