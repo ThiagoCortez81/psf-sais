@@ -6,9 +6,9 @@ import { VisitaModel, LoginResponse } from "../models";
 
 const router: Router = Router();
 
-router.get('/list', listVisita);
-router.get('/list/:id', listVisita);
-router.get('/listFunc/:id', listVisitaFunc);
+router.get('/list', PSFSaisServerConfiguration.authenticationMiddleware, listVisita);
+router.get('/list/:id', PSFSaisServerConfiguration.authenticationMiddleware, listVisita);
+router.get('/listFunc/:id', PSFSaisServerConfiguration.authenticationMiddleware, listVisitaFunc);
 router.post('/add', addVisita);
 router.put('/update/:id', updateVisita);
 router.put('/cancela/:id', cancelaVisita);
@@ -16,7 +16,9 @@ router.put('/cancela/:id', cancelaVisita);
 
 async function listVisita(req: Request, res: Response) {
     const id = (req.params.id);
+    const idFunc = req['user']['ID_func'];
 
+    console.log(idFunc);
     res.send({data: await Bussiness.listVisita(id)});
 }
 
