@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Agenda</ion-title>
+    <ion-title>Agenda - {{dateNow | date: 'dd/MM/yyyy'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,6 +15,36 @@
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">Agenda</strong>
+    <div *ngIf="listAtendimentos.length == 0" class="no-items-container">
+      <img src="../../../assets/img/no-items.png">
+      <h3>Nada na agenda, por enquanto...</h3>
+    </div>
+    <ion-list>
+      <ion-item-sliding *ngFor="let atendimento of listAtendimentos">
+        <ion-item>
+          <ion-label>
+            {{atendimento.nome}}
+            <br>
+            <p><b>Endereço:</b> {{atendimento.logradouro}}, {{atendimento.numero}}, {{atendimento.bairro}}, {{atendimento.cep}}, {{atendimento.cidade}} - {{atendimento.estados}}</p>
+            <p><b>Tipo de visita:</b>
+              <ion-badge class="badge-adjustment" color="secondary" *ngIf="atendimento.tipo == 'Periódica'">Periódica</ion-badge>
+              <ion-badge class="badge-adjustment" color="warning" *ngIf="atendimento.tipo == 'Emergencial'">Emergencial</ion-badge>
+            </p>
+          </ion-label>
+          <div slot="end" class="buttons-section">
+            <ion-button color="success" (click)="realizaVisita(atendimento)">
+              <ion-icon name="checkmark-sharp"></ion-icon>
+            </ion-button>
+            <ion-button color="secondary" (click)="openGoogleMaps(atendimento)">
+              <ion-icon name="map-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="dark">Não-Realizada</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
   </div>
 </ion-content>

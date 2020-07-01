@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { PrimeiroAcessoComponent } from './pages/primeiro-acesso/primeiro-acesso.component';
 import { AgendaComponent } from './pages/agenda/agenda.component';
+import { RealizarVisitaComponent } from './pages/realizar-visita/realizar-visita.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'agenda',
     component: AgendaComponent
+  },
+  {
+    path: 'visita/:id',
+    component: RealizarVisitaComponent
   },
   {
     path: 'folder/:id',

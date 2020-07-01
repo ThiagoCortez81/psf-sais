@@ -1,0 +1,59 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-start">
+                            <h3 class="mb-0">Listagem de Visitas</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-start">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-nome-morador">Nome do Morador</label>
+                                <select id="morador" type="text" name="nome-morador" class="form-control form-control-alternative">
+                                    <option selected disabled > Selecione </option>
+                                    <option *ngFor="let morador of moradorArr" [value]="morador.ID_morador">
+                                        {{morador.nome}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table #dataTable datatable class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Nome morador</th>
+                                        <th scope="col">Data agendada</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Ações</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

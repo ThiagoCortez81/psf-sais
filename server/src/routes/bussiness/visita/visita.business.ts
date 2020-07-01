@@ -41,6 +41,21 @@ export async function listVisitaFunc(idVisita: string) {
     });
 }
 
+export async function listVisitaFuncMorador(idFuncionario: string) {
+    return new Promise(function (resolve, reject) {
+        let query = `
+        SELECT v.*, m.* FROM Visita_Func vf 
+            JOIN Visita v ON v.ID_visita = vf.ID_visita 
+            JOIN Morador m ON v.ID_morador = m.ID_morador 
+        WHERE vf.ID_func = ? AND DATE_FORMAT(CONVERT_TZ(NOW(), @@session.time_zone, '-03:00'),'%y-%m-%d') = DATE_FORMAT(v.dataAgendada,'%y-%m-%d') AND v.status = 'AGENDADA'
+        `;
+        conn.query(query, [idFuncionario], function (err, results, fields) {
+            if (err) { console.log(err); return resolve([]); }
+            return resolve(results);
+        });
+    });
+}
+
 export async function addVisita(visitaModel: VisitaModel) {
     return new Promise(function (resolve, reject) {
         let query = `
@@ -100,6 +115,32 @@ export async function updateVisita(id: string, visitaModel: VisitaModel) {
                     if (err) { console.log(err); return resolve(false); }
                 });
             });
+            
+            return resolve(true);
+        });
+    });
+}
+
+export async function finalizaVisita(id: string, visitaModel: VisitaModel) {
+    return new Promise(function (resolve, reject) {
+        let query: string = `
+        UPDATE Visita SET 
+            dataAgendada = ?,
+            dataRealizada = ?,
+            localizacao = ?,
+            tipo = ?,
+            necessidadeInjetaveis = ?,
+            necessidadeEspecialista = ?,
+            necessidadeEnfermeiro = ?,
+            necessidadeCurativo = ?,
+            usaFarmaciaPopular = ?,
+            status = ?,
+            observacao = ?
+        WHERE ID_visita = ?;
+        `;
+        
+        conn.query(query, [visitaModel.dataAgendada, visitaModel.dataRealizada, visitaModel.localizacao, visitaModel.tipo, visitaModel.necInjetaveis,  visitaModel.necEspecialista, visitaModel.necEnfermeiro, visitaModel.necCurativo, visitaModel.usaFarmPopular, visitaModel.status, visitaModel.obs, id], function (err, results, fields) {
+            if (err) { console.log(err); return resolve(false); }
             
             return resolve(true);
         });
