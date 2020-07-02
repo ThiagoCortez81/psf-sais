@@ -3,6 +3,7 @@ import { WebserviceService } from 'src/app/services/webservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agenda-view',
@@ -35,8 +36,9 @@ export class AgendaViewComponent implements OnInit {
   };
 
   funcionarioArr = [];
+  controllerSrc: any = '';
 
-  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef) {}
+  constructor(private ws: WebserviceService, private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private elementRef: ElementRef, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.params.id;
@@ -46,6 +48,11 @@ export class AgendaViewComponent implements OnInit {
     }
 
   }
+
+  getSafeUrl(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+  }
+
 
   transformDate(date) {
     return this.datePipe.transform(date, 'dd-MM-yyyy');
@@ -66,6 +73,7 @@ export class AgendaViewComponent implements OnInit {
           case 'Cancelada': this.visitaObject.CorStatus = 'text-danger'; break;
       }
 
+      // this.controllerSrc = this.getSafeUrl(`https://maps.google.com/maps?q=${this.visitaObject.localizacao}&hl=es;z=14&amp;output=embed`);
       // let observacao = document.getElementById('observacao');
       // observacao.style.height = (observacao.scrollHeight > observacao.clientHeight) ? (observacao.scrollHeight)+"px" : "60px";
       resolve(this.visitaObject);
