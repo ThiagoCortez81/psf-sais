@@ -37,8 +37,17 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.User = this.tokenStorageService.getUser();
-    console.log(this.User.ID_perfil);
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    const ID_Perfil = this.User.ID_perfil;
+
+    this.menuItems = ROUTES.filter(menuItem => {
+      if(ID_Perfil == '1') return menuItem;
+      if(ID_Perfil == '4') {
+        if(menuItem.path != '/psf') return menuItem;
+      } else {
+        if(menuItem.path != '/psf' && menuItem.path != '/funcionario' && menuItem.path != '/historico/funcionario' && menuItem.path != '/historico/funcionario') return menuItem;
+      }
+
+    });
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });
