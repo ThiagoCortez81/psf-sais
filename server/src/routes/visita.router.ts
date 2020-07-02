@@ -10,7 +10,7 @@ router.get('/list', listVisita);
 router.get('/list/:id', listVisita);
 router.get('/listPerfil/:id', listVisitaPerfil);
 router.get('/listFunc/:id',  listVisitaFunc);
-router.get('/listFuncMorador',  listVisitaFuncMorador);
+router.get('/listFuncMorador', PSFSaisServerConfiguration.authenticationMiddleware, listVisitaFuncMorador);
 router.get('/morador/:id', listVisitaMorador);
 router.get('/funcionario/:id', listVisitaFuncionario);
 router.post('/add', addVisita);
@@ -50,6 +50,7 @@ async function listVisitaFuncionario(req: Request, res: Response) {
 
 
 async function listVisitaFuncMorador(req: Request, res: Response) {
+    console.log(req['user']);
     const id = req['user']['ID_func'];
 
     res.send(await Bussiness.listVisitaFuncMorador(id));

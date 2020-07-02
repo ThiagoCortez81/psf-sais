@@ -2,186 +2,208 @@
     <!-- Mask -->
     <span class="mask bg-gradient-success opacity-8"></span>
 
-  </div>
-  <div class="container-fluid mt--7">
+</div>
+<div class="container-fluid mt--7">
     <div class="row">
-      <div class="col-xl-12 order-xl-1">
-        <div class="card bg-secondary shadow">
-          <div class="card-body">
-            <form #f="ngForm">
-                <h6 class="heading-small text-muted mb-4">Informações do Morador</h6>
-                <div class="pl-lg-4">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Nome do Morador</label>
-                                <input type="text" [(ngModel)]="moradorObject.nome" name="nome"
-                                    class="form-control form-control-alternative" placeholder="Nome do Morador" disabled>
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-body">
+                    <form #f="ngForm">
+                        <h6 class="heading-small text-muted mb-4">Informações do Morador</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Nome do Morador</label>
+                                        <input type="text" [(ngModel)]="moradorObject.nome" name="nome"
+                                            class="form-control form-control-alternative" placeholder="Nome do Morador"
+                                            disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-country">Estado</label>
+                                        <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.estado"
+                                            name="estado" class="form-control form-control-alternative"
+                                            placeholder="Estado" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-country">Cidade</label>
+                                        <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.cidade"
+                                            name="cidade" class="form-control form-control-alternative"
+                                            placeholder="Cidade" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-country">CEP</label>
+                                        <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.cep"
+                                            name="cep" class="form-control form-control-alternative" placeholder="CEP"
+                                            disabled>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-address">Endereço</label>
+                                        <input [(ngModel)]="moradorObject.logradouro" name="logradouro"
+                                            class="form-control form-control-alternative" placeholder="Endereço"
+                                            type="text" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-city">Número</label>
+                                        <input type="number" [(ngModel)]="moradorObject.numero" name="numero"
+                                            class="form-control form-control-alternative" placeholder="Número" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-country">Bairro</label>
+                                        <input type="text" [(ngModel)]="moradorObject.bairro" name="bairro"
+                                            class="form-control form-control-alternative" placeholder="Bairro" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Telefone</label>
+                                        <input type="text" [(ngModel)]="moradorObject.telefone" name="telefone"
+                                            class="form-control form-control-alternative" placeholder="Telefone"
+                                            disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="my-4" />
+                        <h6 class="heading-small text-muted mb-4">Informações da Visita</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-nome-funcionario">Funcionários da
+                                            Visita</label>
+                                        <select type="text" [(ngModel)]="visitaObject.ID_funcionario"
+                                            name="nome-funcionario" class="form-control form-control-alternative"
+                                            multiple disabled>
+                                            <option *ngFor=" let funcionario of funcionarioArr"
+                                                [value]="funcionario.ID_func">{{funcionario.nome}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Tipo de Visita</label>
+                                        <input type="text" [(ngModel)]="visitaObject.tipo" name="tipo"
+                                            class="form-control form-control-alternative" placeholder="Tipo" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Status da Visita</label>
+                                        <input type="text" [(ngModel)]="visitaObject.status" name="status"
+                                            class="form-control form-control-alternative {{visitaObject.CorStatus}}"
+                                            placeholder="Status" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Data Prevista</label>
+                                        <input type="text" [(ngModel)]="visitaObject.dataAgendada" name="dataAgendada"
+                                            class="form-control form-control-alternative" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Data de
+                                            Atendimento</label>
+                                        <input type="text" [(ngModel)]="visitaObject.dataRealizada" name="dataVisita"
+                                            class="form-control form-control-alternative" disabled>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-country">Estado</label>
-                                <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.estado" name="estado"
-                                class="form-control form-control-alternative" placeholder="Estado" disabled>
+                        <hr class="my-4" />
+                        <h6 class="heading-small text-muted mb-4">Detalhes da Visita</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Localização</label>
+                                        <input type="text" [(ngModel)]="visitaObject.localizacao" name="localizacao"
+                                            class="form-ucontrol form-control-alternative" disabled>
+                                    </div>
+                                    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAKdyqEQLddVI3Byq8FCLhbbwBbrnUA3Uw
+                                            &q=-22.4283706,-45.4375411" allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Observações</label>
+                                        <textarea name="observacao" rows="5"
+                                            class="form-control form-control-alternative" disabled
+                                            id="observacao">{{visitaObject.observacao}}</textarea>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-country">Cidade</label>
-                                <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.cidade"
-                                    name="cidade" class="form-control form-control-alternative"
-                                    placeholder="Cidade" disabled>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" [(ngModel)]="visitaObject.necessidadeInjetaveis"
+                                            class="custom-control-input" name="necessidadeInjetaveis">
+                                        <label class="custom-control-label" for="necessidadeInjetaveis">Necessidade de
+                                            Injetáveis</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" [(ngModel)]="visitaObject.necessidadeEspecialista"
+                                            class="custom-control-input" name="necessidadeEspecialista">
+                                        <label class="custom-control-label" for="necessidadeEspecialista">Necessidade de
+                                            Especialista</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" [(ngModel)]="visitaObject.necessidadeEnfermeiro"
+                                            class="custom-control-input" name="necessidadeEnfermeiro">
+                                        <label class="custom-control-label" for="necessidadeEnfermeiro">Necessidade de
+                                            Enfermeiro</label>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-country">CEP</label>
-                                <input type="text" id="input-postal-code" [(ngModel)]="moradorObject.cep" name="cep"
-                                    class="form-control form-control-alternative" placeholder="CEP" disabled>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" [(ngModel)]="visitaObject.necessidadeCurativo"
+                                            class="custom-control-input" name="necessidadeCurativo">
+                                        <label class="custom-control-label" for="necessidadeCurativo">Necessidade de
+                                            Curativos</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" [(ngModel)]="visitaObject.usaFarmaciaPopular"
+                                            class="custom-control-input" name="usaFarmaciaPopular">
+                                        <label class="custom-control-label" for="usaFarmaciaPopular">Necessita de
+                                            Farmácia Popular</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-address">Endereço</label>
-                                <input [(ngModel)]="moradorObject.logradouro" name="logradouro"
-                                    class="form-control form-control-alternative" placeholder="Endereço"
-                                    type="text" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-city">Número</label>
-                                <input type="number" [(ngModel)]="moradorObject.numero" name="numero"
-                                    class="form-control form-control-alternative" placeholder="Número" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-country">Bairro</label>
-                                <input type="text" [(ngModel)]="moradorObject.bairro" name="bairro"
-                                    class="form-control form-control-alternative" placeholder="Bairro" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Telefone</label>
-                                <input type="text" [(ngModel)]="moradorObject.telefone" name="telefone"
-                                    class="form-control form-control-alternative" placeholder="Telefone" disabled>
-                            </div>
-                        </div>
-                    </div>
-
+                    </form>
                 </div>
-                <hr class="my-4" />
-                <h6 class="heading-small text-muted mb-4">Informações da Visita</h6>
-                <div class="pl-lg-4">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-nome-funcionario">Funcionários da Visita</label>
-                                <select type="text" [(ngModel)]="visitaObject.ID_funcionario" name="nome-funcionario"
-                                    class="form-control form-control-alternative" multiple disabled>
-                                    <option *ngFor=" let funcionario of funcionarioArr" [value]="funcionario.ID_func">{{funcionario.nome}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Tipo de Visita</label>
-                                <input type="text" [(ngModel)]="visitaObject.tipo" name="tipo"
-                                    class="form-control form-control-alternative" placeholder="Tipo" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Status da Visita</label>
-                                <input type="text" [(ngModel)]="visitaObject.status" name="status"
-                                    class="form-control form-control-alternative {{visitaObject.CorStatus}}" placeholder="Status" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Data Prevista</label>
-                                <input type="text" [(ngModel)]="visitaObject.dataAgendada" name="dataAgendada"
-                                class="form-control form-control-alternative" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Data de Atendimento</label>
-                                <input type="text" [(ngModel)]="visitaObject.dataRealizada" name="dataVisita"
-                                class="form-control form-control-alternative" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4" />
-                <h6 class="heading-small text-muted mb-4">Detalhes da Visita</h6>
-                <div class="pl-lg-4">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Localização</label>
-                                <input type="text" [(ngModel)]="visitaObject.localizacao" name="localizacao"
-                                class="form-control form-control-alternative" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="form-control-label" for="input-username">Observações</label>
-                                <textarea name="observacao" rows="5" class="form-control form-control-alternative" 
-                                disabled id="observacao">{{visitaObject.observacao}}</textarea>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" [(ngModel)]="visitaObject.necessidadeInjetaveis" class="custom-control-input" name="necessidadeInjetaveis">
-                                <label class="custom-control-label" for="necessidadeInjetaveis">Necessidade de Injetáveis</label>
-                              </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" [(ngModel)]="visitaObject.necessidadeEspecialista" class="custom-control-input" name="necessidadeEspecialista">
-                                <label class="custom-control-label" for="necessidadeEspecialista">Necessidade de Especialista</label>
-                              </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" [(ngModel)]="visitaObject.necessidadeEnfermeiro" class="custom-control-input" name="necessidadeEnfermeiro">
-                                <label class="custom-control-label" for="necessidadeEnfermeiro">Necessidade de Enfermeiro</label>
-                              </div>
-                        </div>
-
-                    </div>      
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" [(ngModel)]="visitaObject.necessidadeCurativo" class="custom-control-input" name="necessidadeCurativo">
-                                <label class="custom-control-label" for="necessidadeCurativo">Necessidade de Curativos</label>
-                              </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" [(ngModel)]="visitaObject.usaFarmaciaPopular" class="custom-control-input" name="usaFarmaciaPopular">
-                                <label class="custom-control-label" for="usaFarmaciaPopular">Necessita de Farmácia Popular</label>
-                              </div>
-                        </div>
-                    </div>
-              </div>
-
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
+</div>
