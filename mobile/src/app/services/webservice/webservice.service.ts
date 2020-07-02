@@ -6,8 +6,8 @@ import { TokenStorageService } from '../tokenStorage/token-storage.service';
   providedIn: 'root'
 })
 export class WebserviceService {
-  URL_SERVER: string = 'http://192.168.0.115:5000/api/';
-  // URL_SERVER: string = 'http://192.168.0.152:5000/api/';
+  // URL_SERVER: string = 'http://192.168.0.115:5000/api/';
+  URL_SERVER: string = 'http://192.168.0.152:5000/api/';
 
   constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
 
